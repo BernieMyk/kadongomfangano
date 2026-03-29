@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Find Kadongo Resort on Mfangano Island — Directions, GPS coordinates, and travel tips for your Lake Victoria escape.">
+  <title>Location & Directions | Kadongo Resort - Mfangano Island</title>
+  
+  <!-- 🌐 FONTS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  
+  <!-- 🛠️ LIBRARIES -->
+  <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+  <!-- 🎨 CRITICAL CSS -->
+  <style>
+    :root {
+      --font-serif: 'Playfair Display', serif;
+      --font-sans: 'Lato', sans-serif;
+      --color-bg: #F9F8F6;
+      --color-text: #2C2C2C;
+      --color-text-light: #5A5A5A;
+      --color-accent: #B88B4A;
+      --color-overlay: rgba(20, 20, 20, 0.5);
+      --spacing-section: 140px;
+    }
+
+    [data-theme="dark"] {
+      --color-bg: #0F1115;
+      --color-text: #E8E8E8;
+      --color-text-light: #B0B0B0;
+      --color-overlay: rgba(0, 0, 0, 0.7);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    html.lenis { height: auto; }
+    .lenis.lenis-smooth { scroll-behavior: auto; }
+    .lenis.lenis-stopped { overflow: hidden; }
+
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--color-bg);
+      color: var(--color-text);
+      line-height: 1.8;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      line-height: 1.2;
+      color: var(--color-text);
+    }
+
+    a { text-decoration: none; color: inherit; transition: all 0.3s ease; }
+    a:hover { color: var(--color-accent); }
+    img, video { max-width: 100%; display: block; object-fit: cover; }
+
+    /* ===== UTILITIES ===== */
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 40px;
+      position: relative;
+      z-index: 2;
+    }
+    .uppercase { text-transform: uppercase; letter-spacing: 3px; font-size: 0.75rem; font-weight: 700; color: var(--color-accent); }
+
+    /* ===== BUTTONS ===== */
+    .btn-luxury {
+      display: inline-block;
+      padding: 20px 50px;
+      border: 1px solid rgba(255,255,255,0.4);
+      color: #fff;
+      font-family: var(--font-sans);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(10px);
+      cursor: pointer;
+    }
+    .btn-luxury::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; width: 0%; height: 100%;
+      background: var(--color-accent);
+      transition: width 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      z-index: -1;
+    }
+    .btn-luxury:hover { 
+      color: #fff; 
+      border-color: var(--color-accent);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 40px rgba(184, 139, 74, 0.4);
+    }
+    .btn-luxury:hover::before { width: 100%; }
+    
+    .btn-luxury.dark {
+      border-color: var(--color-text);
+      color: var(--color-text);
+      background: rgba(0,0,0,0.05);
+    }
+    .btn-luxury.dark:hover { 
+      color: #fff;
+      border-color: var(--color-accent);
+    }
+    .btn-luxury.dark::before { background: var(--color-accent); }
+
+    /* ===== HERO SECTION ===== */
+    .hero {
+      height: 100vh;
+      width: 100%;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .hero-video {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      object-fit: cover;
+      z-index: 1;
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.7));
+      z-index: 2;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 3;
+      text-align: center;
+      color: #fff;
+      max-width: 900px;
+      padding: 0 20px;
+    }
+    .hero-title {
+      font-size: clamp(3rem, 6vw, 5rem);
+      margin-bottom: 25px;
+      opacity: 0;
+      transform: translateY(40px);
+      font-style: italic;
+    }
+    .hero-subtitle {
+      font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+      font-weight: 300;
+      margin-bottom: 50px;
+      opacity: 0;
+      transform: translateY(40px);
+    }
+
+    /* ===== SECTIONS ===== */
+    section {
+      padding: var(--spacing-section) 0;
+      position: relative;
+    }
+
+    /* ===== MAP SECTION ===== */
+    .map-section {
+      background: var(--color-bg);
+      padding: 100px 0;
+    }
+    .map-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+    .map-header h2 {
+      font-size: clamp(2.5rem, 5vw, 3.5rem);
+      margin-bottom: 20px;
+    }
+    .map-container {
+      max-width: 1000px;
+      margin: 0 auto;
+      background: #fff;
+      [data-theme="dark"] & {
+        background: #1a1a1a;
+      }
+      padding: 50px;
+      border-radius: 2px;
+      box-shadow: 0 5px 30px rgba(0,0,0,0.08);
+      text-align: center;
+    }
+    .map-pin {
+      font-size: 4rem;
+      margin-bottom: 20px;
+      animation: bounce 2s infinite;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+    .map-container h3 {
+      font-family: var(--font-serif);
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+    }
+    .map-container p {
+      color: var(--color-text-light);
+      margin-bottom: 30px;
+    }
+    .gps-coords {
+      background: rgba(184, 139, 74, 0.1);
+      padding: 25px;
+      border-radius: 2px;
+      margin: 30px auto;
+      max-width: 600px;
+      text-align: left;
+    }
+    .gps-coords p {
+      margin: 10px 0;
+      font-family: monospace;
+      font-size: 0.95rem;
+    }
+    .gps-coords code {
+      color: var(--color-accent);
+      background: rgba(184, 139, 74, 0.15);
+      padding: 3px 8px;
+      border-radius: 4px;
+    }
+
+    /* ===== TRAVEL OPTIONS ===== */
+    .travel {
+      background: #fff;
+      [data-theme="dark"] .travel {
+        background: #1a1a1a;
+      }
+      padding: 100px 0;
+    }
+    .travel-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+    .travel-header h2 {
+      font-size: clamp(2.5rem, 5vw, 3.5rem);
+      margin-bottom: 20px;
+    }
+    .travel-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .travel-card {
+      background: var(--color-bg);
+      padding: 40px 35px;
+      border-radius: 2px;
+      box-shadow: 0 5px 30px rgba(0,0,0,0.08);
+      transition: all 0.4s ease;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    .travel-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .travel-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 50px rgba(0,0,0,0.12);
+    }
+    .travel-icon {
+      font-size: 3rem;
+      margin-bottom: 20px;
+    }
+    .travel-card h3 {
+      font-family: var(--font-serif);
+      font-size: 1.6rem;
+      margin-bottom: 15px;
+    }
+    .travel-time {
+      display: inline-block;
+      background: rgba(184, 139, 74, 0.15);
+      color: var(--color-accent);
+      padding: 6px 15px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+    .travel-card p {
+      color: var(--color-text-light);
+      line-height: 1.8;
+      margin-bottom: 20px;
+    }
+    .travel-details {
+      list-style: none;
+      margin: 20px 0;
+    }
+    .travel-details li {
+      padding: 8px 0;
+      color: var(--color-text-light);
+      font-size: 0.95rem;
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+      [data-theme="dark"] & {
+        border-bottom-color: rgba(255,255,255,0.1);
+      }
+    }
+    .travel-details li:last-child {
+      border-bottom: none;
+    }
+
+    /* ===== EXPLORE SECTION ===== */
+    .explore {
+      background: var(--color-bg);
+      padding: 100px 0;
+    }
+    .explore-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+    .explore-header h2 {
+      font-size: clamp(2.5rem, 5vw, 3.5rem);
+      margin-bottom: 20px;
+    }
+    .explore-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .explore-card {
+      background: #fff;
+      [data-theme="dark"] .explore-card {
+        background: #1a1a1a;
+      }
+      padding: 35px;
+      border-radius: 2px;
+      box-shadow: 0 5px 30px rgba(0,0,0,0.08);
+      text-align: center;
+      transition: all 0.4s ease;
+    }
+    .explore-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 50px rgba(0,0,0,0.12);
+    }
+    .explore-icon {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+    }
+    .explore-card h3 {
+      font-family: var(--font-serif);
+      font-size: 1.4rem;
+      margin-bottom: 15px;
+    }
+    .explore-card p {
+      color: var(--color-text-light);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      margin-bottom: 15px;
+    }
+    .explore-distance {
+      color: var(--color-accent);
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    /* ===== TRAVEL INFO ===== */
+    .travel-info {
+      background: #fff;
+      [data-theme="dark"] .travel-info {
+        background: #1a1a1a;
+      }
+      padding: 100px 0;
+    }
+    .travel-info-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+    .travel-info-header h2 {
+      font-size: clamp(2.5rem, 5vw, 3.5rem);
+      margin-bottom: 20px;
+    }
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .info-card {
+      background: var(--color-bg);
+      padding: 35px;
+      border-radius: 2px;
+      box-shadow: 0 5px 30px rgba(0,0,0,0.08);
+    }
+    .info-icon {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+    }
+    .info-card h3 {
+      font-family: var(--font-serif);
+      font-size: 1.4rem;
+      margin-bottom: 15px;
+    }
+    .info-card p {
+      color: var(--color-text-light);
+      font-size: 0.95rem;
+      line-height: 1.8;
+    }
+    .info-card a {
+      color: var(--color-accent);
+      font-weight: 500;
+    }
+
+    /* ===== FINAL CTA ===== */
+    .final-cta {
+      height: 80vh;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: #fff;
+    }
+    .final-cta-bg {
+      position: absolute;
+      inset: 0;
+      background: url('https://images.unsplash.com/photo-1520257328597-2c6d0e7f6f8e?auto=format&fit=crop&w=1920&q=80') center/cover;
+      z-index: 1;
+    }
+    .final-cta-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      z-index: 2;
+    }
+    .final-cta-content {
+      position: relative;
+      z-index: 3;
+    }
+    .final-cta h2 {
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      margin-bottom: 25px;
+      font-style: italic;
+      color: #fff;
+    }
+    .final-cta p {
+      font-size: 1.25rem;
+      margin-bottom: 50px;
+      opacity: 0.9;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 992px) {
+      .container { padding: 0 25px; }
+    }
+    @media (max-width: 768px) {
+      .hero-title { font-size: 3rem; }
+      .hero-subtitle { font-size: 1.1rem; }
+      .map-container { padding: 35px 25px; }
+      .travel-grid, .explore-grid, .info-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 480px) {
+      .btn-luxury { width: 100%; padding: 18px 35px; }
+      .gps-coords { padding: 20px; }
+    }
+  </style>
+
+  <!-- 🛡️ PROTECT HEADER CLICKS -->
+  <style>
+    #particle-canvas { pointer-events: none !important; z-index: -1 !important; position: fixed; top: 0; left: 0; width: 100%; height: 100%; }
+    #header-placeholder { position: relative; z-index: 10000; }
+    #header-placeholder, #footer-placeholder { min-height: 80px; }
+  </style>
+</head>
+<body>
+
+  <!-- 🌟 PARTICLE BACKGROUND -->
+  <canvas id="particle-canvas" aria-hidden="true"></canvas>
+
+  <!-- Dynamic Header -->
+  <div id="header-placeholder"></div>
+
+  <main>
+    
+    <!-- 🎬 HERO SECTION -->
+    <section class="hero">
+      <video class="hero-video" autoplay muted loop playsinline poster="https://images.unsplash.com/photo-1506929562872-bb421503ef21?auto=format&fit=crop&w=1920&q=80">
+        <source src="https://videos.pexels.com/video-files/5829129/5829129-uhd_2560_1440_25fps.mp4" type="video/mp4">
+      </video>
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <h1 class="hero-title">Find Us</h1>
+        <p class="hero-subtitle">Nestled on the pristine shores of Lake Victoria's Winam Gulf, Kadongo Resort awaits your arrival.</p>
+      </div>
+    </section>
+
+    <!-- 📍 MAP SECTION -->
+    <section class="map-section">
+      <div class="container">
+        <div class="map-header">
+          <span class="uppercase">Location</span>
+          <h2>Kadongo Resort Location</h2>
+          <p style="color: var(--color-text-light); max-width: 600px; margin: 0 auto;">
+            Use the interactive map below to explore our location and plan your journey.
+          </p>
+        </div>
+        <div class="map-container">
+          <div class="map-pin">📍</div>
+          <h3>Kadongo Resort</h3>
+          <p>Mfangano Island, Lake Victoria, Kenya</p>
+          <a href="https://www.google.com/maps/search/?api=1&query=-0.4740845929442699,34.067577324170614" target="_blank" rel="noopener" class="btn-luxury dark">
+            🗺️ Open in Google Maps
+          </a>
+          <div class="gps-coords">
+            <p><strong>📍 GPS Coordinates:</strong></p>
+            <p>Latitude: <code>-0.4740845929442699</code></p>
+            <p>Longitude: <code>34.067577324170614</code></p>
+            <p>Plus Code: <code>G3G9+82 Sena Centre, Mfangano Island</code></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 🚗 TRAVEL OPTIONS -->
+    <section class="travel">
+      <div class="container">
+        <div class="travel-header">
+          <span class="uppercase">Getting Here</span>
+          <h2>How to Get Here</h2>
+          <p style="color: var(--color-text-light); max-width: 600px; margin: 0 auto;">
+            Multiple convenient routes to reach your island paradise.
+          </p>
+        </div>
+        <div class="travel-grid">
+          
+          <!-- By Air -->
+          <div class="travel-card">
+            <div class="travel-icon">✈️</div>
+            <h3>By Air (Fastest)</h3>
+            <span class="travel-time">⏱️ 45 minutes flight</span>
+            <p>
+              Fly from Kisumu Airport (KIS) to Mfangano Island Airstrip. 
+              Daily scheduled flights available.
+            </p>
+            <ul class="travel-details">
+              <li>Airlines: Safarilink, Airkenya Express</li>
+              <li>Resort Transfer: Complimentary 10-minute pickup from airstrip</li>
+            </ul>
+            <a href="booking.html?transfer=air" class="btn-luxury dark" style="width: 100%; text-align: center; margin-top: 20px;">Arrange Flight Transfer</a>
+          </div>
+          
+          <!-- By Road & Boat -->
+          <div class="travel-card">
+            <div class="travel-icon">🚗🚤</div>
+            <h3>By Road & Boat</h3>
+            <span class="travel-time">⏱️ 3.5 hours total</span>
+            <p>
+              Drive from Kisumu to Rusinga Island ferry terminal (2.5 hours), 
+              then cross to Mfangano Island.
+            </p>
+            <ul class="travel-details">
+              <li>Route: Kisumu → A104 → Homa Bay → Rusinga Ferry → Mfangano</li>
+              <li>Resort Transfer: Private boat pickup from Mfangano jetty included</li>
+            </ul>
+            <a href="https://goo.gl/maps/XXXXXXXXX" target="_blank" rel="noopener" class="btn-luxury dark" style="width: 100%; text-align: center; margin-top: 20px;">Get Driving Directions</a>
+          </div>
+          
+          <!-- By Public Transport -->
+          <div class="travel-card">
+            <div class="travel-icon">🚌</div>
+            <h3>By Public Transport</h3>
+            <span class="travel-time">⏱️ 4-5 hours</span>
+            <p>
+              Matatu (minibus) from Kisumu to Homa Bay, then connecting 
+              transport to Mfangano Island.
+            </p>
+            <ul class="travel-details">
+              <li>Cost: Budget-friendly option (~$10-15 USD)</li>
+              <li>Note: Less convenient but authentic local experience</li>
+            </ul>
+            <a href="contact.html" class="btn-luxury dark" style="width: 100%; text-align: center; margin-top: 20px;">Ask for Instructions</a>
+          </div>
+          
+          <!-- Private Transfer -->
+          <div class="travel-card">
+            <div class="travel-icon">🚐</div>
+            <h3>Private Transfer</h3>
+            <span class="travel-time">⏱️ Door-to-door service</span>
+            <p>
+              Luxury vehicle pickup from Kisumu Airport or your hotel. 
+              Includes boat crossing and resort delivery.
+            </p>
+            <ul class="travel-details">
+              <li>Cost: $150-200 USD (one way, up to 4 passengers)</li>
+              <li>Includes: Professional driver, refreshments, scenic stops</li>
+            </ul>
+            <a href="booking.html?transfer=private" class="btn-luxury dark" style="width: 100%; text-align: center; margin-top: 20px;">Book Private Transfer</a>
+          </div>
+          
+        </div>
+      </div>
+    </section>
+
+    <!-- 🏝️ EXPLORE SECTION -->
+    <section class="explore">
+      <div class="container">
+        <div class="explore-header">
+          <span class="uppercase">Discover</span>
+          <h2>Explore Mfangano Island</h2>
+          <p style="color: var(--color-text-light); max-width: 600px; margin: 0 auto;">
+            Discover the rich culture and natural beauty surrounding the resort.
+          </p>
+        </div>
+        <div class="explore-grid">
+          
+          <div class="explore-card">
+            <div class="explore-icon">🎨</div>
+            <h3>Kwitone Rock Art Site</h3>
+            <p>Ancient Luo rock paintings dating back 500+ years. Guided cultural tours available.</p>
+            <p class="explore-distance">📍 3.2 km from resort</p>
+          </div>
+          
+          <div class="explore-card">
+            <div class="explore-icon">🏖️</div>
+            <h3>Lake Victoria Shoreline</h3>
+            <p>Pristine beaches, fishing villages, and spectacular sunsets over Africa's largest lake.</p>
+            <p class="explore-distance">📍 Beachfront access</p>
+          </div>
+          
+          <div class="explore-card">
+            <div class="explore-icon">🐦</div>
+            <h3>Bird Watching Paradise</h3>
+            <p>Over 300 bird species recorded. Fish eagles, kingfishers, and rare lake specialists.</p>
+            <p class="explore-distance">📍 On-site & surrounding areas</p>
+          </div>
+          
+          <div class="explore-card">
+            <div class="explore-icon">🏘️</div>
+            <h3>Local Fishing Villages</h3>
+            <p>Experience authentic Luo culture, traditional boat building, and fresh fish markets.</p>
+            <p class="explore-distance">📍 1-5 km from resort</p>
+          </div>
+          
+          <div class="explore-card">
+            <div class="explore-icon">🤿</div>
+            <h3>Scuba Diving & Snorkeling</h3>
+            <p>Explore Lake Victoria's underwater world. Equipment rental and guides available.</p>
+            <p class="explore-distance">📍 Resort-organized tours</p>
+          </div>
+          
+          <div class="explore-card">
+            <div class="explore-icon">🥾</div>
+            <h3>Camping & Nature Trails</h3>
+            <p>Hiking paths through indigenous forest, camping sites, and picnic areas.</p>
+            <p class="explore-distance">📍 2-8 km from resort</p>
+          </div>
+          
+        </div>
+      </div>
+    </section>
+
+    <!-- 📋 TRAVEL INFO -->
+    <section class="travel-info">
+      <div class="container">
+        <div class="travel-info-header">
+          <span class="uppercase">Essential Info</span>
+          <h2>Essential Travel Information</h2>
+          <p style="color: var(--color-text-light); max-width: 600px; margin: 0 auto;">
+            Plan your journey with these helpful tips.
+          </p>
+        </div>
+        <div class="info-grid">
+          
+          <div class="info-card">
+            <div class="info-icon">🛂</div>
+            <h3>Visa Requirements</h3>
+            <p>
+              Most visitors need a Kenyan visa. Apply online at 
+              <a href="https://evisa.go.ke" target="_blank" rel="noopener">evisa.go.ke</a> 
+              before travel. East African citizens exempt.
+            </p>
+          </div>
+          
+          <div class="info-card">
+            <div class="info-icon">💉</div>
+            <h3>Health & Vaccinations</h3>
+            <p>
+              Yellow fever vaccination required if traveling from endemic countries. 
+              Malaria prophylaxis recommended. Resort has first aid facilities.
+            </p>
+          </div>
+          
+          <div class="info-card">
+            <div class="info-icon">💱</div>
+            <h3>Currency & Payments</h3>
+            <p>
+              Kenyan Shilling (KES) is local currency. USD accepted at resort. 
+              ATMs available in Homa Bay (bring cash for island).
+            </p>
+          </div>
+          
+          <div class="info-card">
+            <div class="info-icon">📱</div>
+            <h3>Connectivity</h3>
+            <p>
+              Limited mobile coverage on island. Free Wi-Fi available at resort. 
+              Inform family of potential communication gaps.
+            </p>
+          </div>
+          
+          <div class="info-card">
+            <div class="info-icon">🧳</div>
+            <h3>What to Pack</h3>
+            <p>
+              Light clothing, swimwear, sunscreen, insect repellent, comfortable 
+              walking shoes, camera, and a sense of adventure!
+            </p>
+          </div>
+          
+          <div class="info-card">
+            <div class="info-icon">🌡️</div>
+            <h3>Best Time to Visit</h3>
+            <p>
+              Year-round destination. Dry seasons (Dec-Mar, Jun-Oct) ideal for 
+              outdoor activities. Lake views spectacular year-round.
+            </p>
+          </div>
+          
+        </div>
+      </div>
+    </section>
+
+    <!-- 🎯 FINAL CTA -->
+    <section class="final-cta">
+      <div class="final-cta-bg"></div>
+      <div class="final-cta-overlay"></div>
+      <div class="final-cta-content">
+        <h2>Ready to Begin Your Journey?</h2>
+        <p>Book your stay at Kadongo Resort today and let us handle the rest. Complimentary transfers included with all bookings.</p>
+        <a href="booking.html" class="btn-luxury">Reserve Your Stay Now</a>
+        <p style="margin-top: 30px; font-size: 1rem; opacity: 0.85;">
+          📞 Questions? Call us: <strong style="color: #fff;">+254 7XX XXX XXX</strong> • ✉️ info@kadongoresort.com
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Dynamic Footer -->
+  <div id="footer-placeholder"></div>
+
+  <!-- 🧠 LOGIC SCRIPT -->
+  <script src="script.js"></script>
+
+  <!-- 🎬 PAGE ANIMATIONS -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      
+      // 1. Initialize Smooth Scroll (Lenis)
+      const lenis = new Lenis({
+        duration: 1.4,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        direction: 'vertical',
+        gestureDirection: 'vertical',
+        smooth: true,
+        mouseMultiplier: 1,
+        smoothTouch: false,
+        touchMultiplier: 2,
+      });
+
+      function raf(time) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+      }
+      requestAnimationFrame(raf);
+
+      // 2. Initialize GSAP ScrollTrigger
+      gsap.registerPlugin(ScrollTrigger);
+
+      // Hero Animations
+      const tl = gsap.timeline();
+      tl.to('.hero-title', { opacity: 1, y: 0, duration: 1.2, ease: 'power3.out', delay: 0.5 })
+        .to('.hero-subtitle', { opacity: 1, y: 0, duration: 1.2, ease: 'power3.out' }, '-=0.9');
+
+      // Travel Card Animations
+      gsap.utils.toArray('.travel-card').forEach((item, index) => {
+        gsap.to(item, {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: item,
+            start: 'top 85%',
+          },
+          delay: index * 0.1
+        });
+      });
+
+      // 3. Particle Animation
+      (function initParticles() {
+        const canvas = document.getElementById('particle-canvas');
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        
+        let particles = [];
+        const particleCount = 40;
+        
+        class Particle {
+          constructor() {
+            this.x = Math.random() * canvas.width;
+            this.y = Math.random() * canvas.height;
+            this.size = Math.random() * 2;
+            this.speedX = (Math.random() - 0.5) * 0.2;
+            this.speedY = (Math.random() - 0.5) * 0.2;
+            this.opacity = Math.random() * 0.5;
+          }
+          update() {
+            this.x += this.speedX;
+            this.y += this.speedY;
+            if (this.x > canvas.width) this.x = 0;
+            if (this.x < 0) this.x = canvas.width;
+            if (this.y > canvas.height) this.y = 0;
+            if (this.y < 0) this.y = canvas.height;
+          }
+          draw() {
+            ctx.fillStyle = `rgba(184, 139, 74, ${this.opacity})`;
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fill();
+          }
+        }
+        
+        function init() {
+          for (let i = 0; i < particleCount; i++) particles.push(new Particle());
+        }
+        
+        function animate() {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          particles.forEach(p => { p.update(); p.draw(); });
+          requestAnimationFrame(animate);
+        }
+        
+        init();
+        animate();
+        
+        window.addEventListener('resize', () => {
+          canvas.width = window.innerWidth;
+          canvas.height = window.innerHeight;
+        });
+      })();
+    });
+  </script>
+</body>
+</html>
