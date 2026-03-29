@@ -1,13 +1,14 @@
-import { Metadata } from 'next'
-import GalleryClient from '@/components/GalleryClient'
+'use client'
 
-export const metadata: Metadata = {
-  title: 'Gallery | Kadongo Resort - Mfangano Island',
-  description: 'Photo Gallery — A visual journey through Kadongo Resort\'s rooms, dining, and the breathtaking beauty of Mfangano Island.',
-}
+import React, { useState } from 'react'
 
-export default function GalleryPage() {
-  return <GalleryClient />
+interface GalleryItem {
+  id: number
+  src: string
+  alt: string
+  category: string
+  title: string
+  description: string
 }
 
 const galleryItems: GalleryItem[] = [
@@ -77,7 +78,7 @@ const galleryItems: GalleryItem[] = [
   }
 ]
 
-export default function GalleryPage() {
+export default function GalleryClient() {
   const [activeFilter, setActiveFilter] = useState('all')
   const [lightboxOpen, setLightboxOpen] = useState(false)
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
@@ -199,70 +200,40 @@ export default function GalleryPage() {
         </div>
       </section>
 
-      {/* Final CTA */}
-      <section className="relative h-4/5 flex items-center justify-center text-white">
-        <div
-          className="absolute inset-0 bg-cover bg-center"
-          style={{
-            backgroundImage: 'url(https://images.unsplash.com/photo-1520257328597-2c6d0e7f6f8e?auto=format&fit=crop&w=1920&q=80)'
-          }}
-        />
-        <div className="absolute inset-0 bg-black/60" />
-        <div className="relative z-10 text-center max-w-4xl px-4">
-          <h2 className="text-3xl md:text-5xl lg:text-6xl font-serif italic mb-6">
-            Ready to Experience Paradise?
-          </h2>
-          <p className="text-lg md:text-xl mb-12 opacity-90">
-            These images only capture a glimpse of what awaits you at Kadongo Resort.
-          </p>
-          <a
-            href="/booking"
-            className="inline-block px-12 py-5 border border-white/40 text-white uppercase tracking-widest text-sm font-bold hover:bg-primary hover:border-primary transition-all duration-700 relative overflow-hidden group backdrop-blur-sm"
-          >
-            <span className="relative z-10">Book Your Stay Now</span>
-            <div className="absolute inset-0 bg-primary transform -translate-x-full group-hover:translate-x-0 transition-transform duration-700" />
-          </a>
-        </div>
-      </section>
-
-      {/* Lightbox Modal */}
+      {/* Lightbox */}
       {lightboxOpen && (
-        <div
-          className="fixed inset-0 bg-black/95 z-50 flex items-center justify-center flex-col"
-          onClick={closeLightbox}
-        >
+        <div className="fixed inset-0 z-50 bg-black bg-opacity-95 flex items-center justify-center">
           <button
-            className="absolute top-8 right-8 text-white text-4xl hover:rotate-90 transition-transform duration-300"
             onClick={closeLightbox}
-            aria-label="Close lightbox"
+            className="absolute top-6 right-6 text-white text-4xl hover:text-gray-300 transition-colors z-60"
           >
             ×
           </button>
 
           <button
-            className="absolute left-8 top-1/2 -translate-y-1/2 bg-white/10 text-white text-2xl p-4 hover:bg-white/20 transition-colors"
-            onClick={(e) => { e.stopPropagation(); showPrev(); }}
-            aria-label="Previous image"
+            onClick={showPrev}
+            className="absolute left-6 top-1/2 transform -translate-y-1/2 text-white text-4xl hover:text-gray-300 transition-colors z-60"
           >
-            ❮
+            ‹
           </button>
-
-          <img
-            src={filteredItems[currentImageIndex].src}
-            alt={filteredItems[currentImageIndex].alt}
-            className="max-w-[90%] max-h-[80vh] object-contain"
-          />
 
           <button
-            className="absolute right-8 top-1/2 -translate-y-1/2 bg-white/10 text-white text-2xl p-4 hover:bg-white/20 transition-colors"
-            onClick={(e) => { e.stopPropagation(); showNext(); }}
-            aria-label="Next image"
+            onClick={showNext}
+            className="absolute right-6 top-1/2 transform -translate-y-1/2 text-white text-4xl hover:text-gray-300 transition-colors z-60"
           >
-            ❯
+            ›
           </button>
 
-          <div className="text-white mt-6 text-xl font-serif italic text-center">
-            {filteredItems[currentImageIndex].title}
+          <div className="max-w-5xl max-h-full p-4">
+            <img
+              src={filteredItems[currentImageIndex].src}
+              alt={filteredItems[currentImageIndex].alt}
+              className="max-w-full max-h-full object-contain"
+            />
+            <div className="text-white text-center mt-4">
+              <h3 className="text-2xl font-serif mb-2">{filteredItems[currentImageIndex].title}</h3>
+              <p className="text-lg opacity-90">{filteredItems[currentImageIndex].description}</p>
+            </div>
           </div>
         </div>
       )}
