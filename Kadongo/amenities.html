@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Resort Amenities — Everything you need for the perfect island escape at Kadongo Resort.">
+  <title>Amenities | Kadongo Resort - Mfangano Island</title>
+  
+  <!-- 🌐 FONTS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  
+  <!-- 🛠️ LIBRARIES -->
+  <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+  <!-- 🎨 CRITICAL CSS -->
+  <style>
+    :root {
+      --font-serif: 'Playfair Display', serif;
+      --font-sans: 'Lato', sans-serif;
+      --color-bg: #F9F8F6;
+      --color-text: #2C2C2C;
+      --color-text-light: #5A5A5A;
+      --color-accent: #B88B4A;
+      --color-overlay: rgba(20, 20, 20, 0.5);
+      --spacing-section: 140px;
+    }
+
+    [data-theme="dark"] {
+      --color-bg: #0F1115;
+      --color-text: #E8E8E8;
+      --color-text-light: #B0B0B0;
+      --color-overlay: rgba(0, 0, 0, 0.7);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    html.lenis { height: auto; }
+    .lenis.lenis-smooth { scroll-behavior: auto; }
+    .lenis.lenis-stopped { overflow: hidden; }
+
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--color-bg);
+      color: var(--color-text);
+      line-height: 1.8;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      line-height: 1.2;
+      color: var(--color-text);
+    }
+
+    a { text-decoration: none; color: inherit; transition: all 0.3s ease; }
+    img, video { max-width: 100%; display: block; object-fit: cover; }
+
+    /* ===== UTILITIES ===== */
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 40px;
+      position: relative;
+      z-index: 2;
+    }
+    .uppercase { text-transform: uppercase; letter-spacing: 3px; font-size: 0.75rem; font-weight: 700; color: var(--color-accent); }
+
+    /* ===== HERO SECTION ===== */
+    .hero {
+      height: 100vh;
+      width: 100%;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .hero-video {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      object-fit: cover;
+      z-index: 1;
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.7));
+      z-index: 2;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 3;
+      text-align: center;
+      color: #fff;
+      max-width: 900px;
+      padding: 0 20px;
+    }
+    .hero-title {
+      font-size: clamp(3rem, 6vw, 5rem);
+      margin-bottom: 25px;
+      opacity: 0;
+      transform: translateY(40px);
+      font-style: italic;
+    }
+    .hero-subtitle {
+      font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+      font-weight: 300;
+      margin-bottom: 50px;
+      opacity: 0;
+      transform: translateY(40px);
+    }
+
+    /* ===== SECTIONS ===== */
+    section {
+      padding: var(--spacing-section) 0;
+      position: relative;
+    }
+
+    /* ===== WELLNESS SECTION (Video Background) ===== */
+    .wellness {
+      position: relative;
+      padding: 150px 0;
+      color: #fff;
+      overflow: hidden;
+    }
+    .wellness-video {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      object-fit: cover;
+      z-index: 1;
+    }
+    .wellness-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      z-index: 2;
+    }
+    .wellness-content {
+      position: relative;
+      z-index: 3;
+    }
+    .wellness-header {
+      text-align: center;
+      margin-bottom: 80px;
+    }
+    .wellness-header h2 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      margin-bottom: 20px;
+      color: var(--color-accent);
+    }
+    .wellness-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 50px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .wellness-card {
+      background: rgba(255,255,255,0.08);
+      padding: 50px 40px;
+      border: 1px solid rgba(255,255,255,0.15);
+      backdrop-filter: blur(10px);
+      transition: all 0.4s ease;
+    }
+    .wellness-card:hover {
+      background: rgba(255,255,255,0.12);
+      border-color: var(--color-accent);
+      transform: translateY(-5px);
+    }
+    .wellness-icon {
+      font-size: 2.5rem;
+      margin-bottom: 25px;
+      color: var(--color-accent);
+    }
+    .wellness-title {
+      font-family: var(--font-serif);
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+      color: #fff;
+    }
+    .wellness-desc {
+      font-size: 1rem;
+      opacity: 0.85;
+      line-height: 1.8;
+      margin-bottom: 20px;
+    }
+    .wellness-features {
+      list-style: none;
+    }
+    .wellness-features li {
+      padding: 8px 0;
+      font-size: 0.95rem;
+      opacity: 0.8;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .wellness-features li::before {
+      content: '✓';
+      color: var(--color-accent);
+      font-weight: 700;
+    }
+
+    /* ===== DINING SECTION (Split Layout) ===== */
+    .dining {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 90vh;
+      align-items: center;
+      background: #fff;
+    }
+    .dining-img-wrapper {
+      height: 100vh;
+      overflow: hidden;
+    }
+    .dining-img {
+      width: 100%;
+      height: 120%;
+      object-fit: cover;
+      transform: translateY(-10%);
+    }
+    .dining-text {
+      padding: 0 100px 0 60px;
+    }
+    .section-label {
+      margin-bottom: 25px;
+      display: block;
+    }
+    .section-title {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      margin-bottom: 35px;
+    }
+    .section-desc {
+      font-size: 1.15rem;
+      color: var(--color-text-light);
+      margin-bottom: 30px;
+      line-height: 1.9;
+    }
+    .hours-list {
+      list-style: none;
+      margin: 30px 0;
+    }
+    .hours-list li {
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(0,0,0,0.1);
+      font-size: 1.05rem;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .hours-list li span {
+      font-size: 1.2rem;
+    }
+
+    /* ===== EXPERIENCES SECTION (Video Background) ===== */
+    .experiences {
+      position: relative;
+      padding: 150px 0;
+      color: #fff;
+      overflow: hidden;
+    }
+    .experiences-video {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      object-fit: cover;
+      z-index: 1;
+    }
+    .experiences-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      z-index: 2;
+    }
+    .experiences-content {
+      position: relative;
+      z-index: 3;
+    }
+    .experiences-header {
+      text-align: center;
+      margin-bottom: 80px;
+    }
+    .experiences-header h2 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      margin-bottom: 20px;
+      color: var(--color-accent);
+    }
+    .experiences-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .experience-card {
+      background: rgba(255,255,255,0.08);
+      padding: 45px 35px;
+      text-align: center;
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: all 0.4s ease;
+    }
+    .experience-card:hover {
+      background: rgba(255,255,255,0.12);
+      border-color: var(--color-accent);
+      transform: translateY(-5px);
+    }
+    .experience-icon {
+      font-size: 2.5rem;
+      margin-bottom: 25px;
+      color: var(--color-accent);
+    }
+    .experience-title {
+      font-family: var(--font-serif);
+      font-size: 1.6rem;
+      margin-bottom: 15px;
+      color: #fff;
+    }
+    .experience-desc {
+      font-size: 0.95rem;
+      opacity: 0.8;
+      line-height: 1.7;
+    }
+
+    /* ===== CONVENIENCES SECTION ===== */
+    .conveniences {
+      background: var(--color-bg);
+      padding: 150px 0;
+    }
+    .conveniences-header {
+      text-align: center;
+      margin-bottom: 80px;
+    }
+    .conveniences-header h2 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      margin-bottom: 20px;
+    }
+    .conveniences-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .convenience-card {
+      background: #fff;
+      padding: 45px 40px;
+      text-align: center;
+      box-shadow: 0 5px 30px rgba(0,0,0,0.08);
+      transition: all 0.4s ease;
+    }
+    .convenience-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 40px rgba(0,0,0,0.12);
+    }
+    .convenience-icon {
+      font-size: 2.5rem;
+      margin-bottom: 25px;
+      color: var(--color-accent);
+    }
+    .convenience-title {
+      font-family: var(--font-serif);
+      font-size: 1.6rem;
+      margin-bottom: 15px;
+    }
+    .convenience-desc {
+      font-size: 0.95rem;
+      color: var(--color-text-light);
+      line-height: 1.7;
+    }
+
+    /* ===== FINAL CTA ===== */
+    .final-cta {
+      height: 80vh;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: #fff;
+    }
+    .final-cta-bg {
+      position: absolute;
+      inset: 0;
+      background: url('https://images.unsplash.com/photo-1520257328597-2c6d0e7f6f8e?auto=format&fit=crop&w=1920&q=80') center/cover;
+      z-index: 1;
+    }
+    .final-cta-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      z-index: 2;
+    }
+    .final-cta-content {
+      position: relative;
+      z-index: 3;
+    }
+    .final-cta h2 {
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      margin-bottom: 25px;
+      font-style: italic;
+    }
+    .final-cta p {
+      font-size: 1.25rem;
+      margin-bottom: 50px;
+      opacity: 0.9;
+    }
+    .btn-luxury {
+      display: inline-block;
+      padding: 20px 50px;
+      border: 1px solid rgba(255,255,255,0.4);
+      color: #fff;
+      font-family: var(--font-sans);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(10px);
+      cursor: pointer;
+    }
+    .btn-luxury::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; width: 0%; height: 100%;
+      background: var(--color-accent);
+      transition: width 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      z-index: -1;
+    }
+    .btn-luxury:hover { 
+      color: #fff; 
+      border-color: var(--color-accent);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 40px rgba(184, 139, 74, 0.4);
+    }
+    .btn-luxury:hover::before { width: 100%; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 992px) {
+      .dining { grid-template-columns: 1fr; }
+      .dining-img-wrapper { height: 60vh; }
+      .dining-text { padding: 80px 40px; }
+      .container { padding: 0 25px; }
+    }
+    @media (max-width: 768px) {
+      .hero-title { font-size: 3rem; }
+      .wellness-grid, .experiences-grid, .conveniences-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+
+  <!-- 🛡️ PROTECT HEADER CLICKS -->
+  <style>
+    #particle-canvas { pointer-events: none !important; z-index: -1 !important; position: fixed; top: 0; left: 0; width: 100%; height: 100%; }
+    #header-placeholder { position: relative; z-index: 10000; }
+    #header-placeholder, #footer-placeholder { min-height: 80px; }
+  </style>
+</head>
+<body>
+
+  <!-- 🌟 PARTICLE BACKGROUND -->
+  <canvas id="particle-canvas" aria-hidden="true"></canvas>
+
+  <!-- Dynamic Header -->
+  <div id="header-placeholder"></div>
+
+  <main>
+    
+    <!-- 🎬 HERO SECTION -->
+    <section class="hero">
+      <video class="hero-video" autoplay muted loop playsinline poster="https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=1920&q=80">
+        <source src="https://videos.pexels.com/video-files/5829129/5829129-uhd_2560_1440_25fps.mp4" type="video/mp4">
+      </video>
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <h1 class="hero-title">Resort Amenities</h1>
+        <p class="hero-subtitle">Everything you need for the perfect island escape.</p>
+      </div>
+    </section>
+
+    <!-- 🧖 WELLNESS & RELAXATION (Video Background) -->
+    <section class="wellness">
+      <video class="wellness-video" autoplay muted loop playsinline>
+        <source src="https://videos.pexels.com/video-files/3209829/3209829-uhd_2560_1440_24fps.mp4" type="video/mp4">
+      </video>
+      <div class="wellness-overlay"></div>
+      <div class="container wellness-content">
+        <div class="wellness-header">
+          <span class="section-label uppercase">Rejuvenate</span>
+          <h2>Wellness & Relaxation</h2>
+          <p style="opacity: 0.85; max-width: 600px; margin: 0 auto; font-size: 1.1rem;">
+            Rejuvenate your body and soul in our tranquil spaces designed for ultimate relaxation.
+          </p>
+        </div>
+        <div class="wellness-grid">
+          <div class="wellness-card">
+            <div class="wellness-icon">🧖</div>
+            <h3 class="wellness-title">Lakeside Spa</h3>
+            <p class="wellness-desc">
+              Traditional Luo herbal treatments, massages, and facials using organic local botanicals. 
+              Our spa therapists blend ancient wisdom with modern techniques.
+            </p>
+            <ul class="wellness-features">
+              <li>Couples treatment suites</li>
+              <li>Lakeside massage pavilions</li>
+              <li>Organic product line</li>
+            </ul>
+          </div>
+          <div class="wellness-card">
+            <div class="wellness-icon">🧘</div>
+            <h3 class="wellness-title">Yoga Pavilion</h3>
+            <p class="wellness-desc">
+              Daily sunrise and sunset sessions overlooking Lake Victoria. 
+              Private instruction available for all levels.
+            </p>
+            <ul class="wellness-features">
+              <li>Open-air pavilion</li>
+              <li>All equipment provided</li>
+              <li>Private sessions available</li>
+            </ul>
+          </div>
+          <div class="wellness-card">
+            <div class="wellness-icon">🏊</div>
+            <h3 class="wellness-title">Infinity Pool</h3>
+            <p class="wellness-desc">
+              Heated freshwater pool that appears to merge with the lake horizon. 
+              Enjoy poolside service with refreshing cocktails.
+            </p>
+            <ul class="wellness-features">
+              <li>Heated year-round</li>
+              <li>Poolside bar service</li>
+              <li>Sunset views</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 🍽️ DINING SECTION (Split Layout) -->
+    <section class="dining">
+      <div class="dining-img-wrapper">
+        <img src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=800&q=80" alt="Lakeside Dining" class="dining-img" data-speed="0.8">
+      </div>
+      <div class="dining-text">
+        <span class="section-label uppercase">Culinary Excellence</span>
+        <h2 class="section-title">Lakeside Dining</h2>
+        <p class="section-desc">
+          Savor farm-to-table cuisine at <strong>Ziwa Restaurant</strong>, featuring fresh Nile Perch, 
+          organic garden produce, and authentic Luo dishes prepared with love.
+        </p>
+        <p class="section-desc">
+          Enjoy sundowners at <strong>Sunset Bar</strong> with craft cocktails, local wines, and 
+          live acoustic music as the sun dips below Lake Victoria.
+        </p>
+        <h3 style="font-family: var(--font-serif); font-size: 1.4rem; margin: 30px 0 20px; color: var(--color-text);">Restaurant Hours</h3>
+        <ul class="hours-list">
+          <li><span>🍳</span> Breakfast: 7:00 AM - 10:30 AM</li>
+          <li><span>🥗</span> Lunch: 12:30 PM - 3:00 PM</li>
+          <li><span>🍽️</span> Dinner: 7:00 PM - 10:00 PM</li>
+          <li><span>🕯️</span> Private beach dinners available</li>
+        </ul>
+        <a href="dining.html" class="btn-luxury dark">View Full Menu</a>
+      </div>
+    </section>
+
+    <!-- 🎨 ISLAND EXPERIENCES (Video Background) -->
+    <section class="experiences">
+      <video class="experiences-video" autoplay muted loop playsinline>
+        <source src="https://videos.pexels.com/video-files/4426662/4426662-uhd_2560_1440_25fps.mp4" type="video/mp4">
+      </video>
+      <div class="experiences-overlay"></div>
+      <div class="container experiences-content">
+        <div class="experiences-header">
+          <span class="section-label uppercase" style="color: var(--color-accent);">Adventure</span>
+          <h2>Island Experiences</h2>
+          <p style="opacity: 0.85; max-width: 600px; margin: 0 auto; font-size: 1.1rem;">
+            Discover the magic of Mfangano Island with our curated activities.
+          </p>
+        </div>
+        <div class="experiences-grid">
+          <div class="experience-card">
+            <div class="experience-icon">🚤</div>
+            <h3 class="experience-title">Boat Tours</h3>
+            <p class="experience-desc">
+              Sunset cruises, fishing expeditions, and island-hopping adventures on Lake Victoria. 
+              Our experienced captains know the best spots.
+            </p>
+          </div>
+          <div class="experience-card">
+            <div class="experience-icon">🎨</div>
+            <h3 class="experience-title">Cultural Immersion</h3>
+            <p class="experience-desc">
+              Visit local villages, learn traditional crafts, and experience Luo music and dance. 
+              Connect with the community.
+            </p>
+          </div>
+          <div class="experience-card">
+            <div class="experience-icon">🐦</div>
+            <h3 class="experience-title">Birdwatching</h3>
+            <p class="experience-desc">
+              Guided tours to spot 300+ species. Binoculars and expert guides provided. 
+              Best at dawn and dusk.
+            </p>
+          </div>
+          <div class="experience-card">
+            <div class="experience-icon">🧒</div>
+            <h3 class="experience-title">Kids' Club</h3>
+            <p class="experience-desc">
+              Supervised activities, nature crafts, and cultural storytelling for young explorers. 
+              Let the little ones discover the island.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 🛎️ GUEST CONVENIENCES -->
+    <section class="conveniences">
+      <div class="container">
+        <div class="conveniences-header">
+          <span class="section-label uppercase">Comfort</span>
+          <h2 class="section-title">Guest Conveniences</h2>
+          <p class="section-desc" style="margin: 0 auto;">
+            Thoughtful touches to make your stay seamless and memorable.
+          </p>
+        </div>
+        <div class="conveniences-grid">
+          <div class="convenience-card">
+            <div class="convenience-icon">📶</div>
+            <h3 class="convenience-title">Free Wi-Fi</h3>
+            <p class="convenience-desc">
+              High-speed internet throughout the resort. Work or stream with ease from your room or common areas.
+            </p>
+          </div>
+          <div class="convenience-card">
+            <div class="convenience-icon">🅿️</div>
+            <h3 class="convenience-title">Complimentary Parking</h3>
+            <p class="convenience-desc">
+              Secure, shaded parking for guests arriving by car or ferry. Valet service available upon request.
+            </p>
+          </div>
+          <div class="convenience-card">
+            <div class="convenience-icon">🚐</div>
+            <h3 class="convenience-title">Airport Transfers</h3>
+            <p class="convenience-desc">
+              Private boat + vehicle transfers from Kisumu Airport. Booking required; arrange at time of reservation.
+            </p>
+          </div>
+          <div class="convenience-card">
+            <div class="convenience-icon">💬</div>
+            <h3 class="convenience-title">24/7 Concierge</h3>
+            <p class="convenience-desc">
+              Our team is always available to arrange tours, dining reservations, special requests, or share local insights.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 🎯 FINAL CTA -->
+    <section class="final-cta">
+      <div class="final-cta-bg"></div>
+      <div class="final-cta-overlay"></div>
+      <div class="final-cta-content">
+        <h2>Ready to Experience Kadongo?</h2>
+        <p>Every amenity is designed to enhance your island escape. Let us help you plan the perfect stay.</p>
+        <a href="booking.html" class="btn-luxury">Book Your Stay Now</a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Dynamic Footer -->
+  <div id="footer-placeholder"></div>
+
+  <!-- 🧠 LOGIC SCRIPT -->
+  <script src="script.js"></script>
+
+  <!-- 🎬 PAGE ANIMATIONS -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      
+      // 1. Initialize Smooth Scroll (Lenis)
+      const lenis = new Lenis({
+        duration: 1.4,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        direction: 'vertical',
+        gestureDirection: 'vertical',
+        smooth: true,
+        mouseMultiplier: 1,
+        smoothTouch: false,
+        touchMultiplier: 2,
+      });
+
+      function raf(time) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+      }
+      requestAnimationFrame(raf);
+
+      // 2. Initialize GSAP ScrollTrigger
+      gsap.registerPlugin(ScrollTrigger);
+
+      // Hero Animations
+      const tl = gsap.timeline();
+      tl.to('.hero-title', { opacity: 1, y: 0, duration: 1.2, ease: 'power3.out', delay: 0.5 })
+        .to('.hero-subtitle', { opacity: 1, y: 0, duration: 1.2, ease: 'power3.out' }, '-=0.9');
+
+      // Parallax Effects
+      gsap.utils.toArray('[data-speed]').forEach(layer => {
+        const speed = layer.getAttribute('data-speed');
+        gsap.to(layer, {
+          y: (i, target) => ScrollTrigger.maxScroll(window) * speed * 0.1,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: 'body',
+            start: 'top top',
+            end: 'bottom bottom',
+            scrub: 0
+          }
+        });
+      });
+
+      // Fade In Elements
+      gsap.utils.toArray('.section-label, .section-title, .section-desc, .wellness-card, .experience-card, .convenience-card').forEach(elem => {
+        gsap.from(elem, {
+          opacity: 0,
+          y: 40,
+          duration: 1.2,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: elem,
+            start: 'top 85%',
+          }
+        });
+      });
+
+      // 3. Particle Animation
+      (function initParticles() {
+        const canvas = document.getElementById('particle-canvas');
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        
+        let particles = [];
+        const particleCount = 40;
+        
+        class Particle {
+          constructor() {
+            this.x = Math.random() * canvas.width;
+            this.y = Math.random() * canvas.height;
+            this.size = Math.random() * 2;
+            this.speedX = (Math.random() - 0.5) * 0.2;
+            this.speedY = (Math.random() - 0.5) * 0.2;
+            this.opacity = Math.random() * 0.5;
+          }
+          update() {
+            this.x += this.speedX;
+            this.y += this.speedY;
+            if (this.x > canvas.width) this.x = 0;
+            if (this.x < 0) this.x = canvas.width;
+            if (this.y > canvas.height) this.y = 0;
+            if (this.y < 0) this.y = canvas.height;
+          }
+          draw() {
+            ctx.fillStyle = `rgba(184, 139, 74, ${this.opacity})`;
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fill();
+          }
+        }
+        
+        function init() {
+          for (let i = 0; i < particleCount; i++) particles.push(new Particle());
+        }
+        
+        function animate() {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          particles.forEach(p => { p.update(); p.draw(); });
+          requestAnimationFrame(animate);
+        }
+        
+        init();
+        animate();
+        
+        window.addEventListener('resize', () => {
+          canvas.width = window.innerWidth;
+          canvas.height = window.innerHeight;
+        });
+      })();
+    });
+  </script>
+</body>
+</html>

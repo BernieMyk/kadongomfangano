@@ -1,0 +1,31 @@
+{
+  "name": "kadongo-resort",
+  "version": "1.0.0",
+  "description": "Modern luxury resort booking platform built with Next.js, React, Tailwind CSS and Firebase",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "autoprefixer": "^10.4.17",
+    "firebase": "^10.7.0",
+    "framer-motion": "^11.18.2",
+    "lucide-react": "^0.460.0",
+    "next": "^15.0.0",
+    "postcss": "^8.4.33",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "tailwindcss": "^3.4.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.5",
+    "@types/react": "^18.2.45",
+    "@types/react-dom": "^18.2.18",
+    "eslint": "^8.56.0",
+    "eslint-config-next": "^15.0.0",
+    "typescript": "^5.3.3"
+  }
+}

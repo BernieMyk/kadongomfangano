@@ -1,0 +1,407 @@
+<!-- 🏛️ PREMIUM HEADER - Kadongo Resort (Aman-Inspired) -->
+<header id="main-header">
+  <div class="header-container">
+    <!-- Logo -->
+    <div class="logo">
+      <a href="index.html">
+        <span class="logo-text">KADONGO</span>
+        <span class="logo-accent">RESORT</span>
+      </a>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="main-nav">
+      <ul class="nav-links">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="about.html" class="nav-link">About</a></li>
+        <li><a href="rooms.html" class="nav-link">Rooms</a></li>
+        <li><a href="amenities.html" class="nav-link">Amenities</a></li>
+        <li><a href="dining.html" class="nav-link">Dining</a></li>
+        <li><a href="gallery.html" class="nav-link">Gallery</a></li>
+        <li><a href="location.html" class="nav-link">Location</a></li>
+        <li><a href="booking.html" class="nav-link btn-book">Book Now</a></li>
+      </ul>
+    </nav>
+
+    <!-- Header Actions -->
+    <div class="header-actions">
+      <!-- Theme Toggle -->
+      <button id="theme-toggle" class="theme-btn" aria-label="Toggle Dark Mode">
+        <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="5"/>
+          <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+        </svg>
+        <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+
+      <!-- Hamburger Menu -->
+      <button class="hamburger" id="mobile-toggle" aria-label="Toggle Menu" aria-expanded="false">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<style>
+/* ===== LUXURY HEADER VARIABLES ===== */
+:root {
+  --header-bg: rgba(249, 248, 246, 0.95);
+  --header-text: #2C2C2C;
+  --header-accent: #B88B4A;
+  --header-border: rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="dark"] {
+  --header-bg: rgba(15, 17, 21, 0.95);
+  --header-text: #E0E0E0;
+  --header-border: rgba(255, 255, 255, 0.08);
+}
+
+/* ===== HEADER BASE ===== */
+#main-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10000;
+  background: var(--header-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--header-border);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  font-family: 'Lato', sans-serif;
+}
+
+.header-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* ===== LOGO ===== */
+.logo a {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  text-decoration: none;
+}
+
+.logo-text {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  font-weight: 400;
+  letter-spacing: 3px;
+  color: var(--header-text);
+}
+
+.logo-accent {
+  font-family: 'Lato', sans-serif;
+  font-size: 1.48rem;
+  font-weight: 399;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--header-accent);
+}
+
+/* ===== NAVIGATION ===== */
+.navbar {
+  z-index: 10001;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 40px;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+}
+
+.nav-link {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 400;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--header-text);
+  text-decoration: none;
+  position: relative;
+  padding: 8px 0;
+  transition: color 0.3s ease;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 1px;
+  background: var(--header-accent);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateX(-50%);
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: var(--header-accent);
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+  width: 100%;
+}
+
+.btn-book {
+  background: var(--header-accent);
+  color: #fff !important;
+  padding: 12px 28px;
+  border-radius: 0;
+  transition: all 0.4s ease;
+}
+
+.btn-book::after {
+  display: none;
+}
+
+.btn-book:hover {
+  background: #9a733a;
+  transform: translateY(-2px);
+}
+
+/* ===== HEADER ACTIONS ===== */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Theme Toggle */
+.theme-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--header-text);
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.theme-btn:hover {
+  color: var(--header-accent);
+}
+
+.theme-btn svg {
+  width: 20px;
+  height: 20px;
+}
+
+.moon-icon {
+  display: none;
+}
+
+[data-theme="dark"] .sun-icon {
+  display: none;
+}
+
+[data-theme="dark"] .moon-icon {
+  display: block;
+}
+
+/* Hamburger */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 6px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  z-index: 10002;
+}
+
+.bar {
+  width: 28px;
+  height: 1.5px;
+  background: var(--header-text);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hamburger.active .bar:nth-child(1) {
+  transform: translateY(7.5px) rotate(45deg);
+}
+
+.hamburger.active .bar:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+
+.hamburger.active .bar:nth-child(3) {
+  transform: translateY(-7.5px) rotate(-45deg);
+}
+
+/* ===== MOBILE NAVIGATION ===== */
+@media (max-width: 1024px) {
+  .header-container {
+    padding: 20px;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+
+  .navbar {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 100%;
+    height: 100vh;
+    background: var(--header-bg);
+    backdrop-filter: blur(20px);
+    transition: right 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .navbar.active {
+    right: 0;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    gap: 30px;
+    text-align: center;
+  }
+
+  .nav-link {
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+  }
+
+  .btn-book {
+    padding: 16px 40px;
+    font-size: 1rem;
+  }
+}
+
+/* ===== SCROLLED STATE ===== */
+#main-header.scrolled {
+  padding: 10px 0;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+}
+
+/* ===== ACCESSIBILITY ===== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+  }
+}
+
+a:focus-visible, button:focus-visible {
+  outline: 2px solid var(--header-accent);
+  outline-offset: 2px;
+}
+</style>
+
+<script>
+(function initHeader() {
+  'use strict';
+
+  const hamburger = document.getElementById('mobile-toggle');
+  const navbar = document.getElementById('main-nav');
+  const themeToggle = document.getElementById('theme-toggle');
+  const header = document.getElementById('main-header');
+
+  if (!hamburger || !navbar) {
+    setTimeout(initHeader, 100);
+    return;
+  }
+
+  // Mobile Menu Toggle
+  function toggleMenu() {
+    const isActive = navbar.classList.toggle('active');
+    hamburger.classList.toggle('active');
+    hamburger.setAttribute('aria-expanded', isActive);
+    document.body.style.overflow = isActive ? 'hidden' : '';
+  }
+
+  hamburger.addEventListener('click', toggleMenu);
+
+  // Close menu on link click
+  document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', () => {
+      if (window.innerWidth <= 1024 && navbar.classList.contains('active')) {
+        navbar.classList.remove('active');
+        hamburger.classList.remove('active');
+        hamburger.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      }
+    });
+  });
+
+  // Close on outside click
+  document.addEventListener('click', (e) => {
+    if (window.innerWidth <= 1024 &&
+        navbar.classList.contains('active') &&
+        !navbar.contains(e.target) &&
+        !hamburger.contains(e.target)) {
+      navbar.classList.remove('active');
+      hamburger.classList.remove('active');
+      hamburger.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    }
+  });
+
+  // Theme Toggle
+  function applyTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+  }
+
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme) {
+    applyTheme(savedTheme);
+  } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    applyTheme('dark');
+  }
+
+  if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme');
+      applyTheme(current === 'dark' ? 'light' : 'dark');
+    });
+  }
+
+  // Scroll Effect
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) {
+      header.classList.add('scrolled');
+    } else {
+      header.classList.remove('scrolled');
+    }
+  }, { passive: true });
+
+  // Resize Handler
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 1024 && navbar.classList.contains('active')) {
+      navbar.classList.remove('active');
+      hamburger.classList.remove('active');
+      hamburger.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    }
+  });
+
+  console.log('✅ Luxury Header Initialized');
+})();
+</script>

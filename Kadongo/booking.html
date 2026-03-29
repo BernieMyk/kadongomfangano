@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Book Your Stay at Kadongo Resort — Best rates guaranteed when you book direct. Reserve your paradise on Mfangano Island.">
+  <title>Book Your Stay | Kadongo Resort - Mfangano Island</title>
+  
+  <!-- Critical: Particle canvas must not block header clicks -->
+  <style>
+    #particle-canvas { pointer-events: none !important; z-index: -1 !important; position: fixed; top: 0; left: 0; width: 100%; height: 100%; }
+    #header-placeholder { position: relative; z-index: 10000; }
+    #header-placeholder, #footer-placeholder { min-height: 80px; }
+  </style>
+</head>
+<body>
+
+  <!-- 🌟 PARTICLE BACKGROUND CANVAS -->
+  <canvas id="particle-canvas" aria-hidden="true"></canvas>
+
+  <!-- Dynamic Header -->
+  <div id="header-placeholder"></div>
+
+  <!-- 🎯 MAIN CONTENT -->
+  <main>
+    
+    <!-- Page Hero -->
+    <section class="page-hero">
+      <div class="container">
+        <h1 class="scroll-reveal">Reserve Your Paradise</h1>
+        <p class="scroll-reveal delay-1">Best rates guaranteed when you book direct with Kadongo Resort.</p>
+      </div>
+    </section>
+    
+    <!-- Booking Form -->
+    <section class="container">
+      <div class="booking-wrapper scroll-reveal">
+        
+        <form class="booking-form" id="bookingForm" onsubmit="handleBooking(event)">
+          
+          <!-- Stay Dates -->
+          <div class="form-section">
+            <h2>📅 Your Stay</h2>
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="checkin">Check-in Date *</label>
+                <input type="date" id="checkin" name="checkin" required>
+              </div>
+              <div class="form-group">
+                <label for="checkout">Check-out Date *</label>
+                <input type="date" id="checkout" name="checkout" required>
+              </div>
+              <div class="form-group">
+                <label for="guests">Guests *</label>
+                <select id="guests" name="guests" required>
+                  <option value="">Select...</option>
+                  <option value="1">1 Adult</option>
+                  <option value="2">2 Adults</option>
+                  <option value="3">2 Adults, 1 Child</option>
+                  <option value="4">2 Adults, 2 Children</option>
+                  <option value="5+">Family (3+ Adults)</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="promo">Promo Code</label>
+                <input type="text" id="promo" name="promo" placeholder="Enter code">
+              </div>
+            </div>
+          </div>
+          
+          <!-- Room Selection -->
+          <div class="form-section">
+            <h2>🛏️ Select Your Room</h2>
+            <div class="room-options">
+              
+              <label class="room-option card-hover">
+                <input type="radio" name="room" value="banda" required>
+                <div class="room-option-content">
+                  <div class="room-option-header">
+                    <h3>Traditional Banda</h3>
+                    <span class="room-price">KES 25,000 <small>/ night</small></span>
+                  </div>
+                  <p>Queen bed • Authentic style • 35m² • Lake proximity</p>
+                  <ul class="room-features">
+                    <li>✓ Authentic Luo architecture</li>
+                    <li>✓ Private veranda</li>
+                    <li>✓ Garden view</li>
+                  </ul>
+                </div>
+              </label>
+              
+              <label class="room-option card-hover">
+                <input type="radio" name="room" value="lake-suite" required>
+                <div class="room-option-content">
+                  <div class="room-option-header">
+                    <h3>Lake View Suite</h3>
+                    <span class="room-price">KES 32,000 <small>/ night</small></span>
+                  </div>
+                  <p>King bed • Lake view • 45m² • Private balcony</p>
+                  <ul class="room-features">
+                    <li>✓ Panoramic lake views</li>
+                    <li>✓ Premium amenities</li>
+                    <li>✓ Sunrise views</li>
+                  </ul>
+                  <span class="room-badge">Best Seller</span>
+                </div>
+              </label>
+              
+              <label class="room-option card-hover">
+                <input type="radio" name="room" value="garden-villa" required>
+                <div class="room-option-content">
+                  <div class="room-option-header">
+                    <h3>Garden Villa</h3>
+                    <span class="room-price">KES 45,000 <small>/ night</small></span>
+                  </div>
+                  <p>2 Queens • Private garden • 65m² • Butler service</p>
+                  <ul class="room-features">
+                    <li>✓ Private villa</li>
+                    <li>✓ Outdoor shower</li>
+                    <li>✓ Dedicated butler</li>
+                  </ul>
+                  <span class="room-badge">Premium</span>
+                </div>
+              </label>
+              
+            </div>
+          </div>
+          
+          <!-- Guest Details -->
+          <div class="form-section">
+            <h2>👤 Your Details</h2>
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="name">Full Name *</label>
+                <input type="text" id="name" name="name" required placeholder="As shown on ID">
+              </div>
+              <div class="form-group">
+                <label for="email">Email *</label>
+                <input type="email" id="email" name="email" required placeholder="your@email.com">
+              </div>
+              <div class="form-group">
+                <label for="phone">Phone *</label>
+                <input type="tel" id="phone" name="phone" required placeholder="+254 XXX XXX XXX">
+              </div>
+              <div class="form-group full-width">
+                <label for="requests">Special Requests</label>
+                <textarea id="requests" name="requests" rows="3" placeholder="Dietary requirements, special occasions, etc."></textarea>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Payment & Submit -->
+          <div class="form-section">
+            <h2>💳 Payment & Confirmation</h2>
+            <div class="payment-info">
+              <div class="security-badge">
+                <span>🔒</span> Secure Payment (M-Pesa/Card)
+              </div>
+              <div class="security-badge">
+                <span>✅</span> Free Cancellation (48h)
+              </div>
+              <div class="security-badge">
+                <span>💬</span> 24/7 Support
+              </div>
+            </div>
+            <div class="form-checkbox">
+              <input type="checkbox" id="terms" name="terms" required>
+              <label for="terms">I agree to the <a href="terms.html" target="_blank">Terms & Conditions</a> and <a href="privacy.html" target="_blank">Privacy Policy</a> *</label>
+            </div>
+            <button type="submit" class="btn-submit">
+              Confirm Reservation →
+            </button>
+            <p class="booking-note">A confirmation email will be sent immediately after booking. Full payment required within 48 hours to secure your reservation.</p>
+          </div>
+          
+        </form>
+        
+        <!-- Booking Sidebar -->
+        <aside class="booking-sidebar scroll-reveal delay-1">
+          <div class="sidebar-card">
+            <h3>📞 Need Help?</h3>
+            <p>Our team is ready to assist with your booking.</p>
+            <a href="tel:+254700000000" class="btn-contact">📞 +254 700 000 000</a>
+            <a href="mailto:reservations@kadongoresort.com" class="btn-contact">✉️ Email Us</a>
+          </div>
+          
+          <div class="sidebar-card">
+            <h3>✨ Why Book Direct?</h3>
+            <ul class="benefits-list">
+              <li>✓ Best rate guarantee</li>
+              <li>✓ Free room upgrade (subject to availability)</li>
+              <li>✓ Complimentary welcome drink</li>
+              <li>✓ Flexible cancellation (48h)</li>
+              <li>✓ Direct communication with resort</li>
+            </ul>
+          </div>
+          
+          <div class="sidebar-card">
+            <h3>🚐 Airport Transfer</h3>
+            <p>Complimentary pickup from Mfangano Airstrip or jetty included with all bookings.</p>
+          </div>
+        </aside>
+        
+      </div>
+    </section>
+    
+    <!-- FAQ Section -->
+    <section class="faq-bg">
+      <div class="container">
+        <div class="section-header scroll-reveal">
+          <h2>Booking FAQs</h2>
+          <p>Common questions about reservations and payments.</p>
+        </div>
+        <div class="faq-grid">
+          <div class="faq-item card-hover scroll-reveal delay-1">
+            <h3>When should I book?</h3>
+            <p>We recommend booking at least 2-3 months in advance for peak seasons (December-March, June-October). Last-minute bookings subject to availability.</p>
+          </div>
+          <div class="faq-item card-hover scroll-reveal delay-2">
+            <h3>What payment methods are accepted?</h3>
+            <p>We accept M-Pesa, Visa, Mastercard, and bank transfers. Full payment required within 48 hours of booking confirmation.</p>
+          </div>
+          <div class="faq-item card-hover scroll-reveal delay-3">
+            <h3>Can I modify my booking?</h3>
+            <p>Yes! Date changes subject to availability. Contact reservations@kadongoresort.com or call +254 700 000 000.</p>
+          </div>
+          <div class="faq-item card-hover scroll-reveal delay-1">
+            <h3>What is the cancellation policy?</h3>
+            <p>Free cancellation up to 48 hours before arrival. See our <a href="cancellation.html">Cancellation Policy</a> for details.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+  </main>
+
+  <!-- Dynamic Footer -->
+  <div id="footer-placeholder"></div>
+
+  <!-- Main Script Loader -->
+  <script src="script.js"></script>
+
+  <!-- Page-Specific JavaScript & CSS -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      
+      // ===== SCROLL REVEAL ANIMATIONS =====
+      function initScrollAnimations() {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+        document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
+      }
+      
+      // ===== SET MIN DATES FOR BOOKING =====
+      function initDatePickers() {
+        const today = new Date().toISOString().split('T')[0];
+        const checkin = document.getElementById('checkin');
+        const checkout = document.getElementById('checkout');
+        
+        if (checkin) {
+          checkin.min = today;
+          checkin.value = today;
+        }
+        if (checkout) {
+          checkout.min = today;
+          const defaultCheckout = new Date();
+          defaultCheckout.setDate(defaultCheckout.getDate() + 3);
+          checkout.value = defaultCheckout.toISOString().split('T')[0];
+        }
+        
+        // Update checkout min when checkin changes
+        if (checkin && checkout) {
+          checkin.addEventListener('change', function() {
+            checkout.min = this.value;
+            if (checkout.value <= this.value) {
+              const newCheckout = new Date(this.value);
+              newCheckout.setDate(newCheckout.getDate() + 1);
+              checkout.value = newCheckout.toISOString().split('T')[0];
+            }
+          });
+        }
+      }
+      
+      // ===== BOOKING FORM HANDLER =====
+      window.handleBooking = function(e) {
+        e.preventDefault();
+        
+        const form = e.target;
+        const formData = new FormData(form);
+        const data = Object.fromEntries(formData.entries());
+        
+        // Validate dates
+        if (new Date(data.checkout) <= new Date(data.checkin)) {
+          showToast('❌ Check-out date must be after check-in', 'error');
+          return;
+        }
+        
+        // Simulate booking submission
+        const submitBtn = form.querySelector('.btn-submit');
+        const originalText = submitBtn.textContent;
+        submitBtn.textContent = 'Processing...';
+        submitBtn.disabled = true;
+        
+        setTimeout(() => {
+          showToast('✅ Booking request submitted! Check your email for confirmation.', 'success');
+          submitBtn.textContent = originalText;
+          submitBtn.disabled = false;
+          // In production, this would send to your booking backend
+          console.log('Booking Data:', data);
+        }, 2000);
+      };
+      
+      // ===== TOAST NOTIFICATIONS =====
+      window.showToast = function(message, type = 'info') {
+        document.querySelectorAll('.toast').forEach(t => t.remove());
+        const toast = document.createElement('div');
+        const colors = { info: '#3498db', success: '#27ae60', error: '#e74c3c' };
+        toast.className = 'toast';
+        toast.textContent = message;
+        toast.style.cssText = `position:fixed;bottom:25px;right:25px;background:${colors[type]};color:#fff;padding:16px 24px;border-radius:12px;box-shadow:0 8px 30px rgba(0,0,0,0.25);z-index:10000;font-weight:500;font-size:0.95rem;max-width:380px;animation:toastSlideIn 0.3s ease, toastFadeOut 0.5s 3.5s ease forwards;`;
+        document.body.appendChild(toast);
+        if (!document.getElementById('toast-keyframes')) {
+          const style = document.createElement('style');
+          style.id = 'toast-keyframes';
+          style.textContent = `@keyframes toastSlideIn{from{transform:translateX(120%);opacity:0}to{transform:translateX(0);opacity:1}}@keyframes toastFadeOut{from{opacity:1;transform:translateY(0)}to{opacity:0;transform:translateY(20px)}}`;
+          document.head.appendChild(style);
+        }
+        setTimeout(() => { toast.style.opacity = '0'; setTimeout(() => toast.remove(), 500); }, 4000);
+      };
+      
+      // ===== PARTICLE NETWORK ANIMATION =====
+      (function initParticles() {
+        const canvas = document.getElementById('particle-canvas');
+        if (!canvas || !canvas.getContext) return;
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        let mouse = { x: null, y: null, radius: 180 };
+        let animationFrameId;
+        const lightColors = ['#2c5f4d', '#e67e22', '#3498db', '#95a5a6'];
+        const darkColors = ['#4dd0e1', '#ff9800', '#81d4fa', '#bdbdbd'];
+        
+        function getThemeColors() {
+          return document.documentElement.getAttribute('data-theme') === 'dark' ? darkColors : lightColors;
+        }
+        function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+        
+        class Particle {
+          constructor() { this.reset(); }
+          reset() {
+            this.x = Math.random() * canvas.width;
+            this.y = Math.random() * canvas.height;
+            this.size = Math.random() * 2.5 + 1;
+            this.originalSize = this.size;
+            this.speedX = (Math.random() - 0.5) * 0.6;
+            this.speedY = (Math.random() - 0.5) * 0.6;
+            this.color = getThemeColors()[Math.floor(Math.random() * getThemeColors().length)];
+            this.opacity = Math.random() * 0.4 + 0.3;
+          }
+          update() {
+            if (mouse.x !== null && mouse.y !== null) {
+              const dx = mouse.x - this.x, dy = mouse.y - this.y, distance = Math.sqrt(dx*dx + dy*dy);
+              if (distance < mouse.radius) {
+                const force = (mouse.radius - distance) / mouse.radius;
+                this.x += dx * 0.02 * force; this.y += dy * 0.02 * force;
+                this.size = this.originalSize + force * 2.5;
+              } else if (this.size > this.originalSize) { this.size -= 0.05; }
+            }
+            if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+            if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+            this.x += this.speedX; this.y += this.speedY;
+          }
+          draw() {
+            ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fillStyle = this.color; ctx.globalAlpha = this.opacity; ctx.fill(); ctx.globalAlpha = 1;
+          }
+        }
+        
+        function init() {
+          resize(); particles = [];
+          const count = Math.min(80, Math.floor((canvas.width * canvas.height) / 18000));
+          for (let i = 0; i < count; i++) particles.push(new Particle());
+        }
+        function connect() {
+          const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+          const baseColor = isDark ? 'rgba(77, 208, 225,' : 'rgba(44, 95, 77,';
+          const mouseColor = isDark ? 'rgba(255, 152, 0,' : 'rgba(230, 126, 34,';
+          for (let a = 0; a < particles.length; a++) {
+            for (let b = a + 1; b < particles.length; b++) {
+              const dx = particles[a].x - particles[b].x, dy = particles[a].y - particles[b].y, distance = Math.sqrt(dx*dx + dy*dy);
+              if (distance < 130) {
+                const opacity = 0.18 - (distance / 130) * 0.12;
+                ctx.beginPath(); ctx.strokeStyle = baseColor + opacity + ')';
+                ctx.lineWidth = 0.6;
+                ctx.moveTo(particles[a].x, particles[a].y); ctx.lineTo(particles[b].x, particles[b].y); ctx.stroke();
+              }
+            }
+            if (mouse.x !== null && mouse.y !== null) {
+              const dx = particles[a].x - mouse.x, dy = particles[a].y - mouse.y, distance = Math.sqrt(dx*dx + dy*dy);
+              if (distance < mouse.radius) {
+                const opacity = 0.35 - (distance / mouse.radius) * 0.25;
+                ctx.beginPath(); ctx.strokeStyle = mouseColor + opacity + ')';
+                ctx.lineWidth = 1;
+                ctx.moveTo(particles[a].x, particles[a].y); ctx.lineTo(mouse.x, mouse.y); ctx.stroke();
+              }
+            }
+          }
+        }
+        function animate() {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          for (const p of particles) { p.update(); p.draw(); }
+          connect(); animationFrameId = requestAnimationFrame(animate);
+        }
+        window.addEventListener('resize', () => { resize(); init(); }, { passive: true });
+        window.addEventListener('mousemove', (e) => { mouse.x = e.clientX; mouse.y = e.clientY; }, { passive: true });
+        window.addEventListener('touchmove', (e) => { if (e.touches[0]) { mouse.x = e.touches[0].clientX; mouse.y = e.touches[0].clientY; }}, { passive: true });
+        window.addEventListener('mouseout', () => { mouse.x = null; mouse.y = null; });
+        const themeObserver = new MutationObserver(() => {
+          particles.forEach(p => p.color = getThemeColors()[Math.floor(Math.random() * getThemeColors().length)]);
+        });
+        themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+        document.addEventListener('visibilitychange', () => { if (document.hidden) cancelAnimationFrame(animationFrameId); else animate(); });
+        init(); animate();
+      })();
+      
+      // ===== INITIALIZE =====
+      initScrollAnimations();
+      initDatePickers();
+      setTimeout(() => { if (typeof highlightActiveLink === 'function') highlightActiveLink(); }, 200);
+    });
+  </script>
+  
+  <style>
+    /* ===== BASE VARIABLES ===== */
+    :root {
+      --primary: #2c5f4d; --accent: #e67e22; --accent-hover: #d35400;
+      --dark: #1a252f; --light: #f8f9fa;
+      --shadow: 0 4px 20px rgba(0,0,0,0.08); --shadow-hover: 0 8px 30px rgba(0,0,0,0.12);
+      --radius: 12px;
+      --bg-body: #fff; --bg-section: #f8f9fa; --text-main: #333; --text-muted: #666; --card-bg: #fff;
+      --particle-bg-start: #f8f9fa; --particle-bg-end: #e8f4f8; --input-border: #e0e0e0;
+    }
+    [data-theme="dark"] {
+      --bg-body: #121212; --bg-section: #1e1e1e; --text-main: #e0e0e0; --text-muted: #b0b0b0; --card-bg: #1e1e1e;
+      --shadow: 0 4px 20px rgba(0,0,0,0.3); --particle-bg-start: #1a252f; --particle-bg-end: #2c3e50; --input-border: #444;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6; color: var(--text-main); background: var(--bg-body);
+      overflow-x: hidden; transition: background-color 0.3s, color 0.3s;
+    }
+    a { text-decoration: none; color: inherit; transition: color 0.3s; }
+    img { max-width: 100%; display: block; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; position: relative; z-index: 2; }
+    
+    /* ===== SCROLL ANIMATIONS ===== */
+    .scroll-reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .scroll-reveal.visible { opacity: 1; transform: translateY(0); }
+    .scroll-reveal.delay-1 { transition-delay: 0.1s; }
+    .scroll-reveal.delay-2 { transition-delay: 0.2s; }
+    .scroll-reveal.delay-3 { transition-delay: 0.3s; }
+    .card-hover { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+    .card-hover:hover { transform: translateY(-8px); box-shadow: var(--shadow-hover); }
+    
+    /* ===== PAGE HERO ===== */
+    .page-hero {
+      background: linear-gradient(135deg, rgba(44,95,77,0.9), rgba(26,37,47,0.85)),
+                  url('https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=1920&q=80') center/cover;
+      padding: 120px 0 80px; text-align: center; color: #fff;
+    }
+    .page-hero h1 {
+      font-size: clamp(2rem, 5vw, 3rem); font-weight: 800; margin-bottom: 1rem;
+      text-shadow: 0 2px 15px rgba(0,0,0,0.4);
+    }
+    .page-hero p {
+      font-size: 1.2rem; opacity: 0.95; max-width: 600px; margin: 0 auto;
+    }
+    
+    /* ===== BOOKING WRAPPER ===== */
+    .booking-wrapper {
+      display: grid; grid-template-columns: 1fr 350px; gap: 40px;
+      padding: 40px 0 60px;
+    }
+    
+    /* ===== BOOKING FORM ===== */
+    .booking-form {
+      background: var(--card-bg); padding: 35px; border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    .form-section {
+      margin-bottom: 35px; padding-bottom: 30px;
+      border-bottom: 1px solid var(--input-border);
+    }
+    .form-section:last-child { border-bottom: none; margin-bottom: 0; }
+    .form-section h2 {
+      color: var(--primary); font-size: 1.4rem; margin-bottom: 20px; font-weight: 700;
+    }
+    .form-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;
+    }
+    .form-group { display: flex; flex-direction: column; gap: 8px; }
+    .form-group.full-width { grid-column: 1 / -1; }
+    .form-group label {
+      color: var(--text-main); font-weight: 500; font-size: 0.95rem;
+    }
+    .form-group input, .form-group select, .form-group textarea {
+      padding: 12px 15px; border: 2px solid var(--input-border);
+      border-radius: 8px; font-size: 1rem; background: var(--card-bg);
+      color: var(--text-main); transition: border-color 0.3s;
+      font-family: inherit;
+    }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+      outline: none; border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(230, 126, 34, 0.15);
+    }
+    .form-group textarea { resize: vertical; min-height: 80px; }
+    
+    /* ===== ROOM OPTIONS ===== */
+    .room-options {
+      display: flex; flex-direction: column; gap: 15px;
+    }
+    .room-option {
+      display: block; cursor: pointer; position: relative;
+      background: var(--bg-section); padding: 20px; border-radius: var(--radius);
+      border: 2px solid transparent; transition: all 0.3s;
+    }
+    .room-option:hover { border-color: var(--accent); }
+    .room-option input[type="radio"] {
+      position: absolute; top: 20px; right: 20px; width: 20px; height: 20px;
+      accent-color: var(--accent);
+    }
+    .room-option-content { padding-right: 40px; }
+    .room-option-header {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 10px; flex-wrap: wrap; gap: 10px;
+    }
+    .room-option-header h3 {
+      color: var(--primary); font-size: 1.2rem; font-weight: 600;
+    }
+    .room-price {
+      color: var(--accent); font-weight: 700; font-size: 1.1rem;
+    }
+    .room-price small { font-weight: 400; color: var(--text-muted); }
+    .room-option-content p {
+      color: var(--text-muted); font-size: 0.95rem; margin-bottom: 10px;
+    }
+    .room-features {
+      list-style: none; display: flex; flex-wrap: wrap; gap: 10px;
+    }
+    .room-features li {
+      font-size: 0.85rem; color: var(--text-muted);
+    }
+    .room-badge {
+      position: absolute; top: 15px; left: 15px;
+      background: var(--accent); color: #fff; padding: 4px 10px;
+      border-radius: 15px; font-size: 0.75rem; font-weight: 600;
+    }
+    
+    /* ===== PAYMENT INFO ===== */
+    .payment-info {
+      display: flex; gap: 15px; flex-wrap: wrap; margin-bottom: 20px;
+    }
+    .security-badge {
+      display: flex; align-items: center; gap: 6px;
+      background: var(--bg-section); padding: 8px 15px;
+      border-radius: 20px; font-size: 0.85rem; color: var(--text-muted);
+    }
+    .form-checkbox {
+      display: flex; align-items: flex-start; gap: 10px; margin: 20px 0;
+    }
+    .form-checkbox input {
+      width: 20px; height: 20px; accent-color: var(--accent);
+      margin-top: 3px;
+    }
+    .form-checkbox label {
+      font-size: 0.95rem; color: var(--text-muted); line-height: 1.5;
+    }
+    .form-checkbox a { color: var(--accent); font-weight: 500; }
+    .btn-submit {
+      width: 100%; background: var(--accent); color: #fff;
+      padding: 16px; border: none; border-radius: 10px;
+      font-weight: 700; font-size: 1.1rem; cursor: pointer;
+      transition: background 0.3s;
+    }
+    .btn-submit:hover { background: var(--accent-hover); }
+    .btn-submit:disabled {
+      background: var(--text-muted); cursor: not-allowed;
+    }
+    .booking-note {
+      text-align: center; font-size: 0.9rem; color: var(--text-muted);
+      margin-top: 15px;
+    }
+    
+    /* ===== BOOKING SIDEBAR ===== */
+    .booking-sidebar {
+      display: flex; flex-direction: column; gap: 20px;
+    }
+    .sidebar-card {
+      background: var(--card-bg); padding: 25px; border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    .sidebar-card h3 {
+      color: var(--primary); font-size: 1.1rem; margin-bottom: 12px;
+    }
+    .sidebar-card p {
+      color: var(--text-muted); font-size: 0.95rem; margin-bottom: 15px;
+      line-height: 1.6;
+    }
+    .btn-contact {
+      display: block; background: var(--bg-section); color: var(--primary);
+      padding: 10px 15px; border-radius: 8px; text-align: center;
+      font-weight: 500; margin-bottom: 10px; transition: background 0.3s;
+    }
+    .btn-contact:hover { background: var(--accent); color: #fff; }
+    .benefits-list {
+      list-style: none;
+    }
+    .benefits-list li {
+      color: var(--text-muted); font-size: 0.95rem; margin: 8px 0;
+    }
+    
+    /* ===== FAQ SECTION ===== */
+    .faq-bg { background: var(--bg-section); padding: 60px 0; }
+    .section-header {
+      text-align: center; margin-bottom: 40px;
+    }
+    .section-header h2 {
+      font-size: 2rem; color: var(--primary); margin-bottom: 1rem; font-weight: 700;
+    }
+    .section-header p {
+      color: var(--text-muted); max-width: 600px; margin: 0 auto; font-size: 1.1rem;
+    }
+    .faq-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+    }
+    .faq-item {
+      background: var(--card-bg); padding: 25px; border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    .faq-item h3 {
+      color: var(--primary); font-size: 1.1rem; margin-bottom: 12px;
+    }
+    .faq-item p {
+      color: var(--text-muted); font-size: 0.95rem; line-height: 1.6;
+    }
+    .faq-item a { color: var(--accent); font-weight: 500; }
+    
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 992px) {
+      .booking-wrapper { grid-template-columns: 1fr; }
+      .booking-sidebar { order: -1; }
+    }
+    @media (max-width: 768px) {
+      .page-hero { padding: 100px 0 60px; }
+      .page-hero h1 { font-size: 2.3rem; }
+      .booking-form { padding: 25px; }
+      .form-grid { grid-template-columns: 1fr; }
+      .section-header h2 { font-size: 1.8rem; }
+      .faq-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 480px) {
+      .page-hero h1 { font-size: 2rem; }
+      .room-option-header { flex-direction: column; align-items: flex-start; }
+      .payment-info { flex-direction: column; }
+      .btn-submit { padding: 14px; font-size: 1rem; }
+    }
+    
+    /* ===== ACCESSIBILITY ===== */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important; transition-duration: 0.01ms !important;
+      }
+    }
+    a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+      outline: 3px solid var(--accent); outline-offset: 2px; border-radius: 8px;
+    }
+  </style>
+</body>
+</html>

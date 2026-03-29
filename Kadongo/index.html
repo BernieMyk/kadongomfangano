@@ -1,0 +1,1363 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Kadongo Resort — A luxury lakeside escape on Mfangano Island. Authentic culture, pristine nature, and unforgettable experiences.">
+  <title>Kadongo Resort | Mfangano Island — Luxury Lakeside Escape</title>
+  
+  <!-- 🌐 FONTS: Luxury Serif + Clean Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  
+  <!-- 🛠️ LIBRARIES: GSAP (Animations) + Lenis (Smooth Scroll) -->
+  <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+  <!-- 🎨 CRITICAL CSS -->
+  <style>
+    :root {
+      --font-serif: 'Playfair Display', serif;
+      --font-sans: 'Lato', sans-serif;
+      --color-bg: #F9F8F6;
+      --color-text: #2C2C2C;
+      --color-accent: #B88B4A;
+      --color-accent-dark: #9A7035;
+      --color-overlay: rgba(20, 20, 20, 0.5);
+      --spacing-section: 140px;
+    }
+
+    [data-theme="dark"] {
+      --color-bg: #0F1115;
+      --color-text: #E0E0E0;
+      --color-overlay: rgba(0, 0, 0, 0.7);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    html.lenis { height: auto; }
+    .lenis.lenis-smooth { scroll-behavior: auto; }
+    .lenis.lenis-stopped { overflow: hidden; }
+
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--color-bg);
+      color: var(--color-text);
+      
+      line-height: 1.8;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      line-height: 1.2;
+    }
+
+    a { text-decoration: none; color: inherit; transition: all 0.3s ease; }
+    img { max-width: 100%; display: block; object-fit: cover; }
+    video { max-width: 100%; display: block; object-fit: cover; }
+
+    /* ===== UTILITIES ===== */
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 40px;
+      position: relative;
+      z-index: 2;
+    }
+    .text-center { text-align: center; }
+    .uppercase { text-transform: uppercase; letter-spacing: 3px; font-size: 0.75rem; font-weight: 700; color: var(--color-accent); }
+    .gold { color: var(--color-accent); }
+
+    /* ===== BUTTONS - ENHANCED CTA ===== */
+    .btn-luxury {
+      display: inline-block;
+      padding: 20px 50px;
+      border: 1px solid rgba(255,255,255,0.4);
+      color: #fff;
+      font-family: var(--font-sans);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(10px);
+      cursor: pointer;
+    }
+    .btn-luxury::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; width: 0%; height: 100%;
+      background: var(--color-accent);
+      transition: width 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      z-index: -1;
+    }
+    .btn-luxury:hover { 
+      color: #fff; 
+      border-color: var(--color-accent);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 40px rgba(184, 139, 74, 0.4);
+    }
+    .btn-luxury:hover::before { width: 100%; }
+    
+    .btn-luxury.dark {
+      border-color: var(--color-text);
+      color: var(--color-text);
+      background: rgba(0,0,0,0.05);
+    }
+    .btn-luxury.dark:hover { 
+      color: #fff;
+      border-color: var(--color-accent);
+    }
+    .btn-luxury.dark::before { background: var(--color-accent); }
+
+    .btn-primary {
+      display: inline-block;
+      padding: 18px 45px;
+      background: var(--color-accent);
+      color: #fff;
+      font-family: var(--font-sans);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      border: none;
+      transition: all 0.4s ease;
+      cursor: pointer;
+    }
+    .btn-primary:hover {
+      background: var(--color-accent-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(184, 139, 74, 0.5);
+    }
+
+    /* ===== HERO SECTION WITH VIDEO ===== */
+    .hero {
+      height: 100vh;
+      width: 100%;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .hero-video {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      object-fit: cover;
+      z-index: 1;
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.7));
+      z-index: 2;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 3;
+      text-align: center;
+      color: #fff;
+      max-width: 900px;
+      padding: 0 20px;
+    }
+    .hero-title {
+      font-size: clamp(3.5rem, 7vw, 6rem);
+      margin-bottom: 25px;
+      opacity: 0;
+      transform: translateY(40px);
+      font-style: italic;
+    }
+    .hero-subtitle {
+      font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+      font-weight: 300;
+      margin-bottom: 50px;
+      opacity: 0;
+      transform: translateY(40px);
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.6;
+    }
+    .hero-cta {
+      opacity: 0;
+      transform: translateY(40px);
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .hero-scroll {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 3;
+      color: #fff;
+      opacity: 0.7;
+      font-size: 0.75rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      animation: bounce 2s infinite;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(10px); }
+    }
+
+    /* ===== SECTIONS GENERAL ===== */
+    section {
+      padding: var(--spacing-section) 0;
+      position: relative;
+    }
+
+    /* ===== INTRO (Split Layout) ===== */
+    .intro {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 90vh;
+      align-items: center;
+      background: #fff;
+    }
+    .intro-text {
+      padding: 0 100px 0 60px;
+    }
+    .intro-img-wrapper {
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+    }
+    .intro-img {
+      width: 100%;
+      height: 120%;
+      object-fit: cover;
+      transform: translateY(-10%);
+    }
+    .section-label {
+      margin-bottom: 25px;
+      display: block;
+    }
+    .section-title {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      margin-bottom: 35px;
+      color: var(--color-text);
+    }
+    .section-desc {
+      font-size: 1.15rem;
+      color: var(--color-text);
+      opacity: 0.75;
+      margin-bottom: 45px;
+      max-width: 550px;
+      line-height: 1.9;
+    }
+
+    /* ===== ROOMS (Horizontal Cards) ===== */
+    .rooms {
+      background: var(--color-bg);
+      padding-bottom: 0;
+    }
+    .rooms-header {
+      padding: 0 40px 80px;
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .rooms-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+      gap: 0;
+    }
+    .room-card {
+      position: relative;
+      height: 650px;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    .room-bg {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 1.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .room-card:hover .room-bg {
+      transform: scale(1.12);
+    }
+    .room-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      padding: 50px;
+      background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+      color: #fff;
+      transform: translateY(30px);
+      transition: transform 0.6s ease;
+    }
+    .room-card:hover .room-overlay {
+      transform: translateY(0);
+    }
+    .room-name {
+      font-size: 2.2rem;
+      margin-bottom: 12px;
+      font-family: var(--font-serif);
+    }
+    .room-details {
+      font-size: 0.9rem;
+      opacity: 0.85;
+      margin-bottom: 25px;
+      display: flex;
+      gap: 20px;
+      font-weight: 300;
+    }
+    .room-price {
+      font-size: 1.3rem;
+      color: var(--color-accent);
+      font-family: var(--font-serif);
+      font-style: italic;
+    }
+
+    /* ===== AMENITIES (No Pool - Realistic) ===== */
+    .amenities {
+      background: #1a1a1a;
+      color: #fff;
+      padding: 150px 0;
+    }
+    .amenities-header {
+      text-align: center;
+      margin-bottom: 80px;
+    }
+    .amenities-header h2 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      margin-bottom: 20px;
+      color: var(--color-accent);
+    }
+    .amenities-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .amenity-card {
+      background: rgba(255,255,255,0.05);
+      padding: 50px 40px;
+      text-align: center;
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: all 0.4s ease;
+    }
+    .amenity-card:hover {
+      background: rgba(255,255,255,0.08);
+      border-color: var(--color-accent);
+      transform: translateY(-5px);
+    }
+    .amenity-icon {
+      font-size: 2.5rem;
+      margin-bottom: 25px;
+      color: var(--color-accent);
+    }
+    .amenity-title {
+      font-family: var(--font-serif);
+      font-size: 1.6rem;
+      margin-bottom: 15px;
+      color: #fff;
+    }
+    .amenity-desc {
+      font-size: 0.95rem;
+      opacity: 0.75;
+      line-height: 1.7;
+    }
+
+    /* ===== CULTURE (Dark Cinematic) ===== */
+    .culture {
+      background: #1a1a1a;
+      color: #fff;
+      padding: 150px 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .culture-bg {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: url('https://images.unsplash.com/photo-1523805009345-7448845a9e53?auto=format&fit=crop&w=1920&q=80') center/cover;
+      opacity: 0.15;
+      z-index: 1;
+    }
+    .culture-content {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .culture h2 {
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      margin-bottom: 35px;
+      color: var(--color-accent);
+      font-style: italic;
+    }
+    .culture-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 50px;
+      margin-top: 70px;
+      text-align: left;
+    }
+    .culture-item h3 {
+      font-size: 1.6rem;
+      margin-bottom: 18px;
+      color: #fff;
+      font-family: var(--font-serif);
+    }
+    .culture-item p {
+      font-size: 1rem;
+      opacity: 0.75;
+      line-height: 1.8;
+    }
+
+    /* ===== TESTIMONIALS (Right to Left Scroll) ===== */
+    .testimonials {
+      padding: 150px 0;
+      background: var(--color-bg);
+      overflow: hidden;
+    }
+    .testimonials-header {
+      text-align: center;
+      margin-bottom: 80px;
+    }
+    .testimonials-header h2 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      margin-bottom: 20px;
+    }
+    .testimonial-track {
+      display: flex;
+      gap: 40px;
+      animation: scrollLeft 60s linear infinite;
+      width: max-content;
+      padding: 20px 0;
+    }
+    .testimonial-track:hover {
+      animation-play-state: paused;
+    }
+    @keyframes scrollLeft {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .testimonial-card {
+      min-width: 450px;
+      background: #fff;
+      padding: 50px 40px;
+      border-left: 3px solid var(--color-accent);
+      box-shadow: 0 5px 30px rgba(0,0,0,0.08);
+    }
+    .testimonial-stars {
+      color: var(--color-accent);
+      font-size: 1.3rem;
+      margin-bottom: 20px;
+      letter-spacing: 3px;
+    }
+    .testimonial-text {
+      font-family: var(--font-serif);
+      font-size: 1.2rem;
+      font-style: italic;
+      line-height: 1.7;
+      margin-bottom: 25px;
+      color: var(--color-text);
+    }
+    .testimonial-author {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--color-text);
+      opacity: 0.7;
+    }
+
+    /* ===== REVIEW SUBMISSION ===== */
+    .review-submit {
+      background: #fff;
+      padding: 100px 0;
+    }
+    .review-form-container {
+      max-width: 700px;
+      margin: 0 auto;
+      background: var(--color-bg);
+      padding: 60px 50px;
+      border-radius: 2px;
+    }
+    .review-form {
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .form-group label {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 700;
+    }
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      padding: 16px 20px;
+      border: 1px solid rgba(0,0,0,0.15);
+      background: #fff;
+      font-family: var(--font-sans);
+      font-size: 1rem;
+      transition: border-color 0.3s ease;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--color-accent);
+    }
+    .form-group textarea {
+      min-height: 150px;
+      resize: vertical;
+    }
+    .star-rating {
+      display: flex;
+      gap: 10px;
+      font-size: 1.8rem;
+      color: #ddd;
+      cursor: pointer;
+    }
+    .star-rating span:hover,
+    .star-rating span.active {
+      color: var(--color-accent);
+    }
+
+    /* ===== GALLERY (Masonry Feel) ===== */
+    .gallery {
+      padding: 0;
+    }
+    .gallery-track {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+    }
+    .gallery-track::-webkit-scrollbar { display: none; }
+    .gallery-item {
+      min-width: 50vw;
+      height: 70vh;
+      position: relative;
+      scroll-snap-align: center;
+    }
+    .gallery-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .gallery-caption {
+      position: absolute;
+      bottom: 50px;
+      left: 50px;
+      color: #fff;
+      z-index: 2;
+    }
+    .gallery-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.3);
+      transition: background 0.4s;
+    }
+    .gallery-item:hover .gallery-overlay {
+      background: rgba(0,0,0,0.5);
+    }
+
+    /* ===== LOCATION (Split Image/Text) ===== */
+    .location {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+    .location-map {
+      background: url('https://images.unsplash.com/photo-1506929562872-bb421503ef21?auto=format&fit=crop&w=1920&q=80') center/cover;
+      min-height: 650px;
+      position: relative;
+    }
+    .location-info {
+      padding: 100px 80px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background: #fff;
+    }
+    .location-list {
+      list-style: none;
+      margin: 35px 0;
+    }
+    .location-list li {
+      padding: 18px 0;
+      border-bottom: 1px solid rgba(0,0,0,0.1);
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      font-size: 1.05rem;
+    }
+
+    /* ===== INVESTORS SECTION (NEW) ===== */
+    .investors {
+      background: linear-gradient(135deg, #1a1a1a 0%, #2C2C2C 100%);
+      color: #fff;
+      padding: 150px 0;
+      text-align: center;
+    }
+    .investors h2 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      margin-bottom: 25px;
+      color: var(--color-accent);
+    }
+    .investors p {
+      max-width: 700px;
+      margin: 0 auto 50px;
+      font-size: 1.15rem;
+      opacity: 0.85;
+      line-height: 1.8;
+    }
+    .investor-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 40px;
+      max-width: 900px;
+      margin: 0 auto 60px;
+    }
+    .stat-item h3 {
+      font-size: 3rem;
+      color: var(--color-accent);
+      margin-bottom: 10px;
+      font-family: var(--font-serif);
+    }
+    .stat-item p {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      opacity: 0.75;
+    }
+
+    /* ===== FINAL CTA (ENHANCED) ===== */
+    .final-cta {
+      height: 90vh;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: #fff;
+    }
+    .final-cta-bg {
+      position: absolute;
+      inset: 0;
+      background: url('https://images.unsplash.com/photo-1520257328597-2c6d0e7f6f8e?auto=format&fit=crop&w=1920&q=80') center/cover;
+      z-index: 1;
+    }
+    .final-cta-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      z-index: 2;
+    }
+    .final-cta-content {
+      position: relative;
+      z-index: 3;
+      max-width: 800px;
+      padding: 0 20px;
+    }
+    .final-cta h2 {
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      margin-bottom: 25px;
+      font-style: italic;
+    }
+    .final-cta p {
+      font-size: 1.25rem;
+      margin-bottom: 50px;
+      opacity: 0.9;
+      line-height: 1.7;
+    }
+    .cta-benefits {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin-bottom: 50px;
+      flex-wrap: wrap;
+    }
+    .cta-benefit {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.9rem;
+      opacity: 0.85;
+    }
+    .cta-benefit span {
+      color: var(--color-accent);
+      font-size: 1.2rem;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 992px) {
+      .intro, .location { grid-template-columns: 1fr; }
+      .intro-text { padding: 80px 40px; order: 2; }
+      .intro-img-wrapper { height: 60vh; order: 1; }
+      .location-map { min-height: 450px; order: 1; }
+      .location-info { padding: 80px 40px; order: 2; }
+      .gallery-item { min-width: 85vw; }
+      .container { padding: 0 25px; }
+      .testimonial-card { min-width: 350px; }
+    }
+    @media (max-width: 768px) {
+      .hero-title { font-size: 3rem; }
+      .hero-subtitle { font-size: 1.1rem; }
+      .hero-cta { flex-direction: column; align-items: center; }
+      .btn-luxury { width: 100%; max-width: 350px; }
+      .rooms-grid { grid-template-columns: 1fr; }
+      .amenities-grid { grid-template-columns: 1fr; }
+      .culture-grid { grid-template-columns: 1fr; }
+      .testimonial-card { min-width: 300px; padding: 40px 30px; }
+      .review-form-container { padding: 40px 30px; }
+      .investor-stats { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 480px) {
+      .section-title { font-size: 2.2rem; }
+      .btn-luxury { padding: 18px 35px; font-size: 0.8rem; }
+      .cta-benefits { flex-direction: column; gap: 15px; }
+    }
+  </style>
+
+  <!-- 🛡️ PROTECT HEADER CLICKS -->
+  <style>
+    #particle-canvas { pointer-events: none !important; z-index: -1 !important; position: fixed; top: 0; left: 0; width: 100%; height: 100%; }
+    #header-placeholder { position: relative; z-index: 10000; }
+    #header-placeholder, #footer-placeholder { min-height: 80px; }
+  </style>
+</head>
+<body>
+
+  <!-- 🌟 PARTICLE BACKGROUND (Subtle) -->
+  <canvas id="particle-canvas" aria-hidden="true"></canvas>
+
+  <!-- Dynamic Header -->
+  <div id="header-placeholder"></div>
+
+  <main>
+    
+    <!-- 🎬 HERO SCENE WITH VIDEO -->
+    <section class="hero">
+      <!-- Realistic resort video background (using high-quality placeholder) -->
+      <video class="hero-video" autoplay muted loop playsinline poster="https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=1920&q=80">
+        <source src="https://videos.pexels.com/video-files/5829129/5829129-uhd_2560_1440_25fps.mp4" type="video/mp4">
+        <source src="https://videos.pexels.com/video-files/3209829/3209829-uhd_2560_1440_24fps.mp4" type="video/mp4">
+      </video>
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <h1 class="hero-title">Kadongo Resort</h1>
+        <p class="hero-subtitle">Where Lake Victoria meets authentic luxury. An intimate escape on Mfangano Island for those who seek more than a stay—they seek a story.</p>
+        <div class="hero-cta">
+          <a href="booking.html" class="btn-luxury">Reserve Your Escape</a>
+          <a href="#amenities" class="btn-luxury">Explore Amenities</a>
+        </div>
+      </div>
+      <div class="hero-scroll">Scroll to Discover</div>
+    </section>
+
+    <!-- 🏛️ INTRO SCENE -->
+    <section class="intro">
+      <div class="intro-text">
+        <span class="section-label uppercase">The Experience</span>
+        <h2 class="section-title">Convenience Meets Serenity</h2>
+        <p class="section-desc">
+          Located on the pristine shores of Mfangano Island, just meters from the ferry terminal. 
+          Kadongo Resort offers an intimate sanctuary where numerous trees create a calm natural 
+          environment filled with fresh lake breezes, dappled shade, and profound tranquility.
+        </p>
+        <p class="section-desc">
+          Our strategic position near local transport allows guests to explore the island's rich 
+          cultural heritage while returning to a haven of refined comfort.
+        </p>
+        <a href="about.html" class="btn-luxury dark">Discover Our Story</a>
+      </div>
+      <div class="intro-img-wrapper">
+        <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80" alt="Resort Grounds" class="intro-img" data-speed="0.8">
+      </div>
+    </section>
+
+    <!-- 🛏️ ROOMS SCENE -->
+    <section class="rooms">
+      <div class="rooms-header">
+        <span class="section-label uppercase">Sanctuaries</span>
+        <h2 class="section-title">Signature Accommodations</h2>
+        <p class="section-desc" style="margin: 0 auto;">
+          Each room is thoughtfully designed to blend modern luxury with authentic island charm, 
+          offering intimate spaces where every detail honors the land and lake.
+        </p>
+      </div>
+      <div class="rooms-grid">
+        <!-- Room 1 -->
+        <article class="room-card">
+          <img src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=800&q=80" alt="Lake View Suite" class="room-bg">
+          <div class="room-overlay">
+            <h3 class="room-name">Lake View Suite</h3>
+            <div class="room-details">
+              <span>King Bed</span> • <span>45m²</span> • <span>Private Balcony</span>
+            </div>
+            <p style="opacity: 0.9; margin-bottom: 20px; font-size: 0.95rem;">
+              Panoramic windows overlooking Lake Victoria, premium amenities, and serene lake breezes.
+            </p>
+            <div class="room-price">From $189 / night</div>
+            <a href="rooms.html#lake-suite" class="btn-luxury" style="margin-top: 20px;">View Suite</a>
+          </div>
+        </article>
+        <!-- Room 2 -->
+        <article class="room-card">
+          <img src="https://images.unsplash.com/photo-1590490360182-c31938a86497?auto=format&fit=crop&w=800&q=80" alt="Garden Villa" class="room-bg">
+          <div class="room-overlay">
+            <h3 class="room-name">Garden Villa</h3>
+            <div class="room-details">
+              <span>2 Queens</span> • <span>65m²</span> • <span>Private Garden</span>
+            </div>
+            <p style="opacity: 0.9; margin-bottom: 20px; font-size: 0.95rem;">
+              Private villa surrounded by tropical gardens with dedicated butler service for families.
+            </p>
+            <div class="room-price">From $329 / night</div>
+            <a href="rooms.html#garden-villa" class="btn-luxury" style="margin-top: 20px;">View Villa</a>
+          </div>
+        </article>
+        <!-- Room 3 -->
+        <article class="room-card">
+          <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=80" alt="Traditional Banda" class="room-bg">
+          <div class="room-overlay">
+            <h3 class="room-name">Traditional Banda</h3>
+            <div class="room-details">
+              <span>Queen Bed</span> • <span>35m²</span> • <span>Cultural</span>
+            </div>
+            <p style="opacity: 0.9; margin-bottom: 20px; font-size: 0.95rem;">
+              Authentic Luo-style cottage with modern comforts, steps from the lakeshore.
+            </p>
+            <div class="room-price">From $149 / night</div>
+            <a href="rooms.html#banda" class="btn-luxury" style="margin-top: 20px;">View Banda</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- 🧖 AMENITIES SCENE (REALISTIC - NO POOL) -->
+    <section class="amenities" id="amenities">
+      <div class="container">
+        <div class="amenities-header">
+          <span class="section-label uppercase">Curated</span>
+          <h2>Resort Amenities</h2>
+          <p style="opacity: 0.75; max-width: 600px; margin: 0 auto; font-size: 1.1rem; line-height: 1.8;">
+            Every amenity is designed to enhance your connection with nature and local culture, 
+            offering authentic experiences rather than generic luxury.
+          </p>
+        </div>
+        <div class="amenities-grid">
+          <div class="amenity-card">
+            <div class="amenity-icon">🍽️</div>
+            <h3 class="amenity-title">Lakeside Dining</h3>
+            <p class="amenity-desc">Farm-to-table cuisine featuring fresh Nile Perch, organic garden produce, and authentic Luo dishes at Ziwa Restaurant.</p>
+          </div>
+          <div class="amenity-card">
+            <div class="amenity-icon">🧖</div>
+            <h3 class="amenity-title">Spa & Wellness</h3>
+            <p class="amenity-desc">Traditional Luo herbal treatments, massages, and facials using organic local botanicals in tranquil treatment rooms.</p>
+          </div>
+          <div class="amenity-card">
+            <div class="amenity-icon">🚣</div>
+            <h3 class="amenity-title">Water Sports</h3>
+            <p class="amenity-desc">Kayaking, fishing expeditions, and boat tours on Lake Victoria with expert local guides and equipment provided.</p>
+          </div>
+          <div class="amenity-card">
+            <div class="amenity-icon">🧒</div>
+            <h3 class="amenity-title">Kids' Club</h3>
+            <p class="amenity-desc">Supervised activities, nature crafts, and cultural storytelling for young explorers while parents relax.</p>
+          </div>
+          <div class="amenity-card">
+            <div class="amenity-icon">📶</div>
+            <h3 class="amenity-title">Free Wi-Fi</h3>
+            <p class="amenity-desc">High-speed internet throughout the resort. Work or stream with ease from your room or common areas.</p>
+          </div>
+          <div class="amenity-card">
+            <div class="amenity-icon">🌅</div>
+            <h3 class="amenity-title">Sunset Bar</h3>
+            <p class="amenity-desc">Craft cocktails, local wines, and artisanal beers with live acoustic music as the sun dips below Lake Victoria.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 🎨 CULTURE SCENE -->
+    <section class="culture">
+      <div class="culture-bg"></div>
+      <div class="culture-content">
+        <span class="section-label uppercase">Heritage</span>
+        <h2>Discover Mfangano's Soul</h2>
+        <p style="opacity: 0.8; margin-bottom: 50px; font-size: 1.15rem; line-height: 1.8;">
+          Immerse yourself in the rich history of the Abasuba people. Our curated cultural experiences 
+          connect you with traditions that have thrived for thousands of years.
+        </p>
+        
+        <div class="culture-grid">
+          <div class="culture-item">
+            <h3>Mawanga Rock Art</h3>
+            <p>Ancient paintings believed to be 1,000-4,000 years old. A site of deep spiritual significance historically associated with rainmaking rituals.</p>
+          </div>
+          <div class="culture-item">
+            <h3>Kwitone Shelter</h3>
+            <p>Hike through scenic forest trails to discover geometric paintings reflecting early human creativity and cultural traditions on the island.</p>
+          </div>
+          <div class="culture-item">
+            <h3>Abasuba Museum</h3>
+            <p>A cultural center preserving heritage with guided tours to historic rock art sites and insights into local Luo traditions.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 💬 TESTIMONIALS (RIGHT TO LEFT SCROLL) -->
+    <section class="testimonials">
+      <div class="container">
+        <div class="testimonials-header">
+          <span class="section-label uppercase">Guest Stories</span>
+          <h2>Cherished Memories</h2>
+        </div>
+        <div class="testimonial-track">
+          <!-- Testimonial 1 -->
+          <div class="testimonial-card">
+            <div class="testimonial-stars">★★★★★</div>
+            <p class="testimonial-text">"The sunset views from our suite were breathtaking. Staff went above and beyond to make our honeymoon magical. The rock art tour was unforgettable!"</p>
+            <p class="testimonial-author">Sarah & James • UK, March 2026</p>
+          </div>
+          <!-- Testimonial 2 -->
+          <div class="testimonial-card">
+            <div class="testimonial-stars">★★★★★</div>
+            <p class="testimonial-text">"A perfect blend of luxury and authenticity. The traditional banda felt like home, and the Abasuba Museum tour gave us deep cultural insights."</p>
+            <p class="testimonial-author">Dr. Amina O. • Nairobi, February 2026</p>
+          </div>
+          <!-- Testimonial 3 -->
+          <div class="testimonial-card">
+            <div class="testimonial-stars">★★★★★</div>
+            <p class="testimonial-text">"Our family loved the kids' club and water activities. The guided hike to Kwitone Rock Shelter was educational and fun for everyone!"</p>
+            <p class="testimonial-author">The Mwangi Family • Kisumu, January 2026</p>
+          </div>
+          <!-- Testimonial 4 -->
+          <div class="testimonial-card">
+            <div class="testimonial-stars">★★★★★</div>
+            <p class="testimonial-text">"The lakeside dining exceeded all expectations. Fresh Nile Perch prepared to perfection with ingredients from their own garden. Pure magic."</p>
+            <p class="testimonial-author">Michael & Claire • Germany, December 2025</p>
+          </div>
+          <!-- Testimonial 5 -->
+          <div class="testimonial-card">
+            <div class="testimonial-stars">★★★★★</div>
+            <p class="testimonial-text">"As an investor, I was impressed by the sustainable practices and community integration. This is how eco-luxury should be done."</p>
+            <p class="testimonial-author">James K. • London, November 2025</p>
+          </div>
+          <!-- DUPLICATE FOR SEAMLESS LOOP -->
+          <div class="testimonial-card">
+            <div class="testimonial-stars">★★★★★</div>
+            <p class="testimonial-text">"The sunset views from our suite were breathtaking. Staff went above and beyond to make our honeymoon magical. The rock art tour was unforgettable!"</p>
+            <p class="testimonial-author">Sarah & James • UK, March 2026</p>
+          </div>
+          <div class="testimonial-card">
+            <div class="testimonial-stars">★★★★★</div>
+            <p class="testimonial-text">"A perfect blend of luxury and authenticity. The traditional banda felt like home, and the Abasuba Museum tour gave us deep cultural insights."</p>
+            <p class="testimonial-author">Dr. Amina O. • Nairobi, February 2026</p>
+          </div>
+          <div class="testimonial-card">
+            <div class="testimonial-stars">★★★★★</div>
+            <p class="testimonial-text">"Our family loved the kids' club and water activities. The guided hike to Kwitone Rock Shelter was educational and fun for everyone!"</p>
+            <p class="testimonial-author">The Mwangi Family • Kisumu, January 2026</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 📝 REVIEW SUBMISSION SECTION -->
+    <section class="review-submit">
+      <div class="container">
+        <div class="testimonials-header">
+          <span class="section-label uppercase">Share Your Story</span>
+          <h2>Leave a Review</h2>
+          <p class="section-desc" style="margin: 0 auto;">
+            Your experience matters to us. Share your story and help future guests discover 
+            the magic of Kadongo Resort.
+          </p>
+        </div>
+        <div class="review-form-container">
+          <form class="review-form" onsubmit="submitReview(event)">
+            <div class="form-group">
+              <label>Full Name *</label>
+              <input type="text" name="name" required placeholder="Your full name">
+            </div>
+            <div class="form-group">
+              <label>Email Address *</label>
+              <input type="email" name="email" required placeholder="your@email.com">
+            </div>
+            <div class="form-group">
+              <label>Rating *</label>
+              <div class="star-rating" id="starRating">
+                <span data-value="1">★</span>
+                <span data-value="2">★</span>
+                <span data-value="3">★</span>
+                <span data-value="4">★</span>
+                <span data-value="5">★</span>
+              </div>
+              <input type="hidden" name="rating" id="ratingValue" required>
+            </div>
+            <div class="form-group">
+              <label>Your Review *</label>
+              <textarea name="review" required placeholder="Share your experience at Kadongo Resort..."></textarea>
+            </div>
+            <div class="form-group">
+              <label>Stay Date</label>
+              <input type="month" name="stayDate" placeholder="Month of your stay">
+            </div>
+            <button type="submit" class="btn-primary" style="width: 100%; margin-top: 10px;">Submit Review</button>
+            <p style="font-size: 0.85rem; opacity: 0.7; text-align: center; margin-top: 15px;">
+              All reviews are moderated and published within 48 hours.
+            </p>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- 🖼️ GALLERY SCENE -->
+    <section class="gallery">
+      <div class="gallery-track">
+        <div class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=800&q=80" class="gallery-img">
+          <div class="gallery-overlay"></div>
+          <div class="gallery-caption">
+            <h3>Lake Victoria</h3>
+            <p>Sunset Views</p>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1520257328597-2c6d0e7f6f8e?auto=format&fit=crop&w=800&q=80" class="gallery-img">
+          <div class="gallery-overlay"></div>
+          <div class="gallery-caption">
+            <h3>Lakeside Dining</h3>
+            <p>Farm-to-Table</p>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=800&q=80" class="gallery-img">
+          <div class="gallery-overlay"></div>
+          <div class="gallery-caption">
+            <h3>Cultural Experiences</h3>
+            <p>Authentic Traditions</p>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1506929562872-bb421503ef21?auto=format&fit=crop&w=800&q=80" class="gallery-img">
+          <div class="gallery-overlay"></div>
+          <div class="gallery-caption">
+            <h3>Mfangano Island</h3>
+            <p>Pristine Nature</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 🗺️ LOCATION SCENE -->
+    <section class="location">
+      <div class="location-map"></div>
+      <div class="location-info">
+        <span class="section-label uppercase">The Journey</span>
+        <h2 class="section-title">Find Us</h2>
+        <p style="font-size: 1.1rem; opacity: 0.8; line-height: 1.8;">
+          Nestled in the Winam Gulf of Lake Victoria, Mfangano Island is a hidden gem of culture 
+          and tranquility. Kadongo Resort is your gateway to authentic experiences.
+        </p>
+        <ul class="location-list">
+          <li><span>✈️</span> 45-min flight from Kisumu • 3.5hr scenic drive</li>
+          <li><span>🚤</span> Private boat transfer included with bookings</li>
+          <li><span>🎨</span> Explore ancient rock art & local Luo communities</li>
+          <li><span>🐦</span> Birdwatching paradise • 300+ species recorded</li>
+          <li><span>🎣</span> World-class Nile Perch fishing on your doorstep</li>
+          <li><span>🚶</span> Walking distance to ferry terminal & transport</li>
+        </ul>
+        <a href="location.html" class="btn-luxury dark">Plan Your Journey</a>
+      </div>
+    </section>
+
+    <!-- 💼 INVESTORS SECTION (NEW) -->
+    <section class="investors">
+      <div class="container">
+        <span class="section-label uppercase">Investment Opportunity</span>
+        <h2>Partner With Paradise</h2>
+        <p>
+          Kadongo Resort represents a unique investment opportunity in East Africa's growing 
+          eco-luxury tourism sector. With sustainable operations, strong community ties, and 
+          proven guest satisfaction, we're positioned for exceptional growth.
+        </p>
+        <div class="investor-stats">
+          <div class="stat-item">
+            <h3>4.9/5</h3>
+            <p>Guest Rating</p>
+          </div>
+          <div class="stat-item">
+            <h3>85%</h3>
+            <p>Occupancy Rate</p>
+          </div>
+          <div class="stat-item">
+            <h3>90%</h3>
+            <p>Local Staff</p>
+          </div>
+          <div class="stat-item">
+            <h3>100%</h3>
+            <p>Solar Powered</p>
+          </div>
+        </div>
+        <a href="contact.html?subject=Investment" class="btn-luxury">Explore Investment Opportunities</a>
+      </div>
+    </section>
+
+    <!-- 🎯 FINAL CTA SCENE (ENHANCED) -->
+    <section class="final-cta">
+      <div class="final-cta-bg"></div>
+      <div class="final-cta-overlay"></div>
+      <div class="final-cta-content">
+        <h2>Ready for Your Escape?</h2>
+        <p>Join us at Kadongo Resort and create memories that last a lifetime. 
+           Best rates guaranteed when you book direct with us.</p>
+        <div class="cta-benefits">
+          <div class="cta-benefit"><span>✓</span> Best Rate Guarantee</div>
+          <div class="cta-benefit"><span>✓</span> Free Room Upgrade (Subject to Availability)</div>
+          <div class="cta-benefit"><span>✓</span> Complimentary Welcome Drink</div>
+          <div class="cta-benefit"><span>✓</span> Flexible Cancellation (48h)</div>
+        </div>
+        <a href="booking.html" class="btn-luxury">Book Direct & Save 15%</a>
+        <p style="margin-top: 30px; font-size: 1rem; opacity: 0.85;">
+          📞 Prefer to talk? Call us: <strong style="color: #fff;">+254 7XX XXX XXX</strong>
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Dynamic Footer -->
+  <div id="footer-placeholder"></div>
+
+  <!-- 🧠 LOGIC SCRIPT -->
+  <script src="script.js"></script>
+
+  <!-- 🎬 PAGE ANIMATIONS -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      
+      // 1. Initialize Smooth Scroll (Lenis)
+      const lenis = new Lenis({
+        duration: 1.4,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        direction: 'vertical',
+        gestureDirection: 'vertical',
+        smooth: true,
+        mouseMultiplier: 1,
+        smoothTouch: false,
+        touchMultiplier: 2,
+      });
+
+      function raf(time) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+      }
+      requestAnimationFrame(raf);
+
+      // 2. Initialize GSAP ScrollTrigger
+      gsap.registerPlugin(ScrollTrigger);
+
+      // Hero Animations
+      const tl = gsap.timeline();
+      tl.to('.hero-title', { opacity: 1, y: 0, duration: 1.2, ease: 'power3.out', delay: 0.5 })
+        .to('.hero-subtitle', { opacity: 1, y: 0, duration: 1.2, ease: 'power3.out' }, '-=0.9')
+        .to('.hero-cta', { opacity: 1, y: 0, duration: 1.2, ease: 'power3.out' }, '-=0.9');
+
+      // Parallax Effects
+      gsap.utils.toArray('[data-speed]').forEach(layer => {
+        const speed = layer.getAttribute('data-speed');
+        gsap.to(layer, {
+          y: (i, target) => ScrollTrigger.maxScroll(window) * speed * 0.1,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: 'body',
+            start: 'top top',
+            end: 'bottom bottom',
+            scrub: 0
+          }
+        });
+      });
+
+      // Fade In Elements
+      gsap.utils.toArray('.fade-in, .section-title, .section-desc, .btn-luxury').forEach(elem => {
+        gsap.from(elem, {
+          opacity: 0,
+          y: 40,
+          duration: 1.2,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: elem,
+            start: 'top 85%',
+          }
+        });
+      });
+
+      // 3. Star Rating for Reviews
+      const starRating = document.getElementById('starRating');
+      const ratingValue = document.getElementById('ratingValue');
+      
+      if (starRating) {
+        const stars = starRating.querySelectorAll('span');
+        let selectedRating = 0;
+        
+        stars.forEach(star => {
+          star.addEventListener('click', function() {
+            selectedRating = parseInt(this.dataset.value);
+            ratingValue.value = selectedRating;
+            
+            stars.forEach((s, index) => {
+              if (index < selectedRating) {
+                s.classList.add('active');
+              } else {
+                s.classList.remove('active');
+              }
+            });
+          });
+          
+          star.addEventListener('mouseenter', function() {
+            const hoverRating = parseInt(this.dataset.value);
+            stars.forEach((s, index) => {
+              if (index < hoverRating) {
+                s.style.color = 'var(--color-accent)';
+              } else {
+                s.style.color = '#ddd';
+              }
+            });
+          });
+          
+          star.addEventListener('mouseleave', function() {
+            stars.forEach((s, index) => {
+              if (index < selectedRating) {
+                s.style.color = 'var(--color-accent)';
+              } else {
+                s.style.color = '#ddd';
+              }
+            });
+          });
+        });
+      }
+
+      // 4. Review Submission Handler
+      window.submitReview = function(e) {
+        e.preventDefault();
+        const form = e.target;
+        const formData = new FormData(form);
+        const data = Object.fromEntries(formData.entries());
+        
+        if (!data.rating || data.rating < 1) {
+          showToast('❌ Please select a star rating', 'error');
+          return;
+        }
+        
+        // Simulate submission
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const originalText = submitBtn.textContent;
+        submitBtn.textContent = 'Submitting...';
+        submitBtn.disabled = true;
+        
+        setTimeout(() => {
+          showToast('✅ Thank you! Your review will be published within 48 hours.', 'success');
+          form.reset();
+          submitBtn.textContent = originalText;
+          submitBtn.disabled = false;
+          ratingValue.value = '';
+          stars.forEach(s => s.classList.remove('active'));
+        }, 2000);
+      };
+
+      // 5. Particle Animation (Lightweight)
+      (function initParticles() {
+        const canvas = document.getElementById('particle-canvas');
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        
+        let particles = [];
+        const particleCount = 40;
+        
+        class Particle {
+          constructor() {
+            this.x = Math.random() * canvas.width;
+            this.y = Math.random() * canvas.height;
+            this.size = Math.random() * 2;
+            this.speedX = (Math.random() - 0.5) * 0.2;
+            this.speedY = (Math.random() - 0.5) * 0.2;
+            this.opacity = Math.random() * 0.5;
+          }
+          update() {
+            this.x += this.speedX;
+            this.y += this.speedY;
+            if (this.x > canvas.width) this.x = 0;
+            if (this.x < 0) this.x = canvas.width;
+            if (this.y > canvas.height) this.y = 0;
+            if (this.y < 0) this.y = canvas.height;
+          }
+          draw() {
+            ctx.fillStyle = `rgba(184, 139, 74, ${this.opacity})`;
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fill();
+          }
+        }
+        
+        function init() {
+          for (let i = 0; i < particleCount; i++) particles.push(new Particle());
+        }
+        
+        function animate() {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          particles.forEach(p => { p.update(); p.draw(); });
+          requestAnimationFrame(animate);
+        }
+        
+        init();
+        animate();
+        
+        window.addEventListener('resize', () => {
+          canvas.width = window.innerWidth;
+          canvas.height = window.innerHeight;
+        });
+      })();
+
+      // 6. Toast Notifications
+      window.showToast = function(message, type = 'info') {
+        document.querySelectorAll('.toast').forEach(t => t.remove());
+        const toast = document.createElement('div');
+        const colors = { info: '#3498db', success: '#27ae60', error: '#e74c3c' };
+        toast.className = 'toast';
+        toast.textContent = message;
+        toast.style.cssText = `position:fixed;bottom:25px;right:25px;background:${colors[type]};color:#fff;padding:16px 24px;border-radius:12px;box-shadow:0 8px 30px rgba(0,0,0,0.25);z-index:10000;font-weight:500;font-size:0.95rem;max-width:380px;animation:toastSlideIn 0.3s ease, toastFadeOut 0.5s 3.5s ease forwards;`;
+        document.body.appendChild(toast);
+        if (!document.getElementById('toast-keyframes')) {
+          const style = document.createElement('style');
+          style.id = 'toast-keyframes';
+          style.textContent = `@keyframes toastSlideIn{from{transform:translateX(120%);opacity:0}to{transform:translateX(0);opacity:1}}@keyframes toastFadeOut{from{opacity:1;transform:translateY(0)}to{opacity:0;transform:translateY(20px)}}`;
+          document.head.appendChild(style);
+        }
+        setTimeout(() => { toast.style.opacity = '0'; setTimeout(() => toast.remove(), 500); }, 4000);
+      };
+    });
+  </script>
+</body>
+</html>
