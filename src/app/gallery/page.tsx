@@ -10,7 +10,6 @@ export default function GalleryPage() {
   return <GalleryClient />
 }
 
-const galleryItems: GalleryItem[] = [
   {
     id: 1,
     src: 'https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=800&q=80',
