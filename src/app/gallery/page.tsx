@@ -10,19 +10,6 @@ export default function GalleryPage() {
   return <GalleryClient />
 }
 
-  {
-    id: 1,
-    src: 'https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=800&q=80',
-    alt: 'Lake View Suite',
-    category: 'rooms',
-    title: 'Lake View Suite',
-    description: 'Wake up to the sunrise over Lake Victoria.'
-  },
-  {
-    id: 2,
-    src: 'https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=800&q=80',
-    alt: 'Lakeside Dining',
-    category: 'dining',
     title: 'Lakeside Dining',
     description: 'Fresh catch of the day served under the stars.'
   },
