@@ -2,8 +2,6 @@ import { Navbar } from '@/components/Navbar'
 import { RoomGrid } from '@/components/RoomGrid'
 import { Footer } from '@/components/Footer'
 
-export const dynamic = 'force-dynamic'
-
 export default function RoomsPage() {
   return (
     <main className="min-h-screen bg-light-bg dark:bg-dark-bg text-light-text dark:text-dark-text">
