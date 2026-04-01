@@ -5,6 +5,8 @@ export const metadata: Metadata = {
   description: 'Resort Amenities — Everything you need for the perfect island escape at Kadongo Resort.',
 }
 
+export const dynamic = 'force-dynamic'
+
 export default function AmenitiesPage() {
   return (
     <main>

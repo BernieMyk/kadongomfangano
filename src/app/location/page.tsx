@@ -5,6 +5,8 @@ export const metadata: Metadata = {
   description: 'Find Kadongo Resort on Mfangano Island — Directions, GPS coordinates, and travel tips for your Lake Victoria escape.',
 }
 
+export const dynamic = 'force-dynamic'
+
 export default function LocationPage() {
   return (
     <main>

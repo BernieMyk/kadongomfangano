@@ -6,6 +6,8 @@ export const metadata: Metadata = {
   description: 'Get in touch with Kadongo Resort. Contact us for reservations, inquiries, or to plan your perfect island escape on Mfangano Island.',
 }
 
+export const dynamic = 'force-dynamic'
+
 export default function ContactPage() {
 
   return (

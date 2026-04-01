@@ -4,6 +4,8 @@ import { RoomGrid } from '@/components/RoomGrid'
 import { BookingForm } from '@/components/BookingForm'
 import { Footer } from '@/components/Footer'
 
+export const dynamic = 'force-dynamic'
+
 export default function Home() {
   return (
     <main className="min-h-screen bg-light-bg dark:bg-dark-bg text-light-text dark:text-dark-text">

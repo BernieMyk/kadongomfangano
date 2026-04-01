@@ -1,20 +1,21 @@
-import type { Metadata } from 'next'
-import type { ReactNode } from 'react'
-import { ThemeProvider } from '@/context/ThemeContext'
-import '@/app/globals.css'
+'use client'
 
-export const metadata: Metadata = {
-  title: 'Kadongo Resort | Mfangano Island',
-  description: 'Luxury resort on Mfangano Island with eco smart suites, kayaking, and safari adventures.',
-}
+import type { ReactNode } from 'react'
+import Head from 'next/head'
+import { ClientLayout } from '@/components/ClientLayout'
+import '@/app/globals.css'
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <Head>
+        <title>Kadongo Resort | Mfangano Island</title>
+        <meta name="description" content="Luxury resort on Mfangano Island with eco smart suites, kayaking, and safari adventures." />
+      </Head>
       <body>
-        <ThemeProvider>
+        <ClientLayout>
           {children}
-        </ThemeProvider>
+        </ClientLayout>
       </body>
     </html>
   )
