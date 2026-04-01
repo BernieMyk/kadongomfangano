@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 interface GalleryItem {
   id: number
@@ -95,6 +95,10 @@ export default function GalleryClient() {
     ? galleryItems
     : galleryItems.filter(item => item.category === activeFilter)
 
+  /**
+   * Opens the lightbox modal for the specified image index.
+   * @param index - The index of the image in the filtered items array.
+   */
   const openLightbox = (index: number) => {
     setCurrentImageIndex(index)
     setLightboxOpen(true)
@@ -114,6 +118,10 @@ export default function GalleryClient() {
     setCurrentImageIndex((prev) => (prev - 1 + filteredItems.length) % filteredItems.length)
   }
 
+  /**
+   * Handles keyboard navigation for the lightbox modal.
+   * @param e - The keyboard event.
+   */
   const handleKeyDown = (e: KeyboardEvent) => {
     if (!lightboxOpen) return
     if (e.key === 'Escape') closeLightbox()
@@ -121,10 +129,10 @@ export default function GalleryClient() {
     if (e.key === 'ArrowLeft') showPrev()
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
     document.addEventListener('keydown', handleKeyDown)
     return () => document.removeEventListener('keydown', handleKeyDown)
-  }, [lightboxOpen])
+  }, [lightboxOpen, filteredItems.length])
 
   return (
     <main>
@@ -200,40 +208,70 @@ export default function GalleryClient() {
         </div>
       </section>
 
-      {/* Lightbox */}
+      {/* Final CTA */}
+      <section className="relative h-4/5 flex items-center justify-center text-white">
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{
+            backgroundImage: 'url(https://images.unsplash.com/photo-1520257328597-2c6d0e7f6f8e?auto=format&fit=crop&w=1920&q=80)'
+          }}
+        />
+        <div className="absolute inset-0 bg-black/60" />
+        <div className="relative z-10 text-center max-w-4xl px-4">
+          <h2 className="text-3xl md:text-5xl lg:text-6xl font-serif italic mb-6">
+            Ready to Experience Paradise?
+          </h2>
+          <p className="text-lg md:text-xl mb-12 opacity-90">
+            These images only capture a glimpse of what awaits you at Kadongo Resort.
+          </p>
+          <a
+            href="/booking"
+            className="inline-block px-12 py-5 border border-white/40 text-white uppercase tracking-widest text-sm font-bold hover:bg-primary hover:border-primary transition-all duration-700 relative overflow-hidden group backdrop-blur-sm"
+          >
+            <span className="relative z-10">Book Your Stay Now</span>
+            <div className="absolute inset-0 bg-primary transform -translate-x-full group-hover:translate-x-0 transition-transform duration-700" />
+          </a>
+        </div>
+      </section>
+
+      {/* Lightbox Modal */}
       {lightboxOpen && (
-        <div className="fixed inset-0 z-50 bg-black bg-opacity-95 flex items-center justify-center">
+        <div
+          className="fixed inset-0 bg-black/95 z-50 flex items-center justify-center flex-col"
+          onClick={closeLightbox}
+        >
           <button
+            className="absolute top-8 right-8 text-white text-4xl hover:rotate-90 transition-transform duration-300"
             onClick={closeLightbox}
-            className="absolute top-6 right-6 text-white text-4xl hover:text-gray-300 transition-colors z-60"
+            aria-label="Close lightbox"
           >
             ×
           </button>
 
           <button
-            onClick={showPrev}
-            className="absolute left-6 top-1/2 transform -translate-y-1/2 text-white text-4xl hover:text-gray-300 transition-colors z-60"
+            className="absolute left-8 top-1/2 -translate-y-1/2 bg-white/10 text-white text-2xl p-4 hover:bg-white/20 transition-colors"
+            onClick={(e) => { e.stopPropagation(); showPrev(); }}
+            aria-label="Previous image"
           >
-            ‹
+            ❮
           </button>
+
+          <img
+            src={filteredItems[currentImageIndex].src}
+            alt={filteredItems[currentImageIndex].alt}
+            className="max-w-[90%] max-h-[80vh] object-contain"
+          />
 
           <button
-            onClick={showNext}
-            className="absolute right-6 top-1/2 transform -translate-y-1/2 text-white text-4xl hover:text-gray-300 transition-colors z-60"
+            className="absolute right-8 top-1/2 -translate-y-1/2 bg-white/10 text-white text-2xl p-4 hover:bg-white/20 transition-colors"
+            onClick={(e) => { e.stopPropagation(); showNext(); }}
+            aria-label="Next image"
           >
-            ›
+            ❯
           </button>
 
-          <div className="max-w-5xl max-h-full p-4">
-            <img
-              src={filteredItems[currentImageIndex].src}
-              alt={filteredItems[currentImageIndex].alt}
-              className="max-w-full max-h-full object-contain"
-            />
-            <div className="text-white text-center mt-4">
-              <h3 className="text-2xl font-serif mb-2">{filteredItems[currentImageIndex].title}</h3>
-              <p className="text-lg opacity-90">{filteredItems[currentImageIndex].description}</p>
-            </div>
+          <div className="text-white mt-6 text-xl font-serif italic text-center">
+            {filteredItems[currentImageIndex].title}
           </div>
         </div>
       )}
