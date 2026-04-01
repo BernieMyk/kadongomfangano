@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 
 interface GalleryItem {
   id: number
@@ -99,40 +99,96 @@ export default function GalleryClient() {
    * Opens the lightbox modal for the specified image index.
    * @param index - The index of the image in the filtered items array.
    */
-  const openLightbox = (index: number) => {
-    setCurrentImageIndex(index)
-    setLightboxOpen(true)
-    document.body.style.overflow = 'hidden'
-  }
+  const openLightbox = useCallback((index: number) => {
+    try {
+      if (index < 0 || index >= filteredItems.length) {
+        console.error('Invalid index for lightbox:', index)
+        return
+      }
+      setCurrentImageIndex(index)
+      setLightboxOpen(true)
+    } catch (error) {
+      console.error('Error opening lightbox:', error)
+    }
+  }, [filteredItems.length])
 
-  const closeLightbox = () => {
-    setLightboxOpen(false)
-    document.body.style.overflow = ''
-  }
+  const closeLightbox = useCallback(() => {
+    try {
+      setLightboxOpen(false)
+    } catch (error) {
+      console.error('Error closing lightbox:', error)
+    }
+  }, [])
 
-  const showNext = () => {
-    setCurrentImageIndex((prev) => (prev + 1) % filteredItems.length)
-  }
+  const showNext = useCallback(() => {
+    try {
+      if (filteredItems.length === 0) return
+      setCurrentImageIndex((prev) => (prev + 1) % filteredItems.length)
+    } catch (error) {
+      console.error('Error showing next image:', error)
+    }
+  }, [filteredItems.length])
 
-  const showPrev = () => {
-    setCurrentImageIndex((prev) => (prev - 1 + filteredItems.length) % filteredItems.length)
-  }
+  const showPrev = useCallback(() => {
+    try {
+      if (filteredItems.length === 0) return
+      setCurrentImageIndex((prev) => (prev - 1 + filteredItems.length) % filteredItems.length)
+    } catch (error) {
+      console.error('Error showing previous image:', error)
+    }
+  }, [filteredItems.length])
 
   /**
    * Handles keyboard navigation for the lightbox modal.
    * @param e - The keyboard event.
    */
-  const handleKeyDown = (e: KeyboardEvent) => {
-    if (!lightboxOpen) return
-    if (e.key === 'Escape') closeLightbox()
-    if (e.key === 'ArrowRight') showNext()
-    if (e.key === 'ArrowLeft') showPrev()
-  }
+  const handleKeyDown = useCallback((e: KeyboardEvent) => {
+    try {
+      if (!lightboxOpen || filteredItems.length === 0) return
+      if (e.key === 'Escape') closeLightbox()
+      if (e.key === 'ArrowRight') showNext()
+      if (e.key === 'ArrowLeft') showPrev()
+    } catch (error) {
+      console.error('Error handling key down:', error)
+    }
+  }, [lightboxOpen, filteredItems.length, closeLightbox, showNext, showPrev])
 
   useEffect(() => {
-    document.addEventListener('keydown', handleKeyDown)
-    return () => document.removeEventListener('keydown', handleKeyDown)
-  }, [lightboxOpen, filteredItems.length])
+    try {
+      document.addEventListener('keydown', handleKeyDown)
+      return () => {
+        try {
+          document.removeEventListener('keydown', handleKeyDown)
+        } catch (error) {
+          console.error('Error removing keydown listener:', error)
+        }
+      }
+    } catch (error) {
+      console.error('Error adding keydown listener:', error)
+    }
+  }, [handleKeyDown])
+
+  // Effect for body overflow
+  useEffect(() => {
+    try {
+      if (lightboxOpen) {
+        document.body.style.overflow = 'hidden'
+      } else {
+        document.body.style.overflow = ''
+      }
+      return () => {
+        try {
+          document.body.style.overflow = ''
+        } catch (error) {
+          console.error('Error resetting body overflow:', error)
+        }
+      }
+    } catch (error) {
+      console.error('Error setting body overflow:', error)
+    }
+  }, [lightboxOpen])
+
+  const currentItem = filteredItems[currentImageIndex]
 
   return (
     <main>
@@ -235,7 +291,7 @@ export default function GalleryClient() {
       </section>
 
       {/* Lightbox Modal */}
-      {lightboxOpen && (
+      {lightboxOpen && currentItem && (
         <div
           className="fixed inset-0 bg-black/95 z-50 flex items-center justify-center flex-col"
           onClick={closeLightbox}
@@ -257,8 +313,8 @@ export default function GalleryClient() {
           </button>
 
           <img
-            src={filteredItems[currentImageIndex].src}
-            alt={filteredItems[currentImageIndex].alt}
+            src={currentItem.src}
+            alt={currentItem.alt}
             className="max-w-[90%] max-h-[80vh] object-contain"
           />
 
@@ -271,7 +327,7 @@ export default function GalleryClient() {
           </button>
 
           <div className="text-white mt-6 text-xl font-serif italic text-center">
-            {filteredItems[currentImageIndex].title}
+            {currentItem.title}
           </div>
         </div>
       )}
